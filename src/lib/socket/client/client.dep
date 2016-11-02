@@ -1,0 +1,22 @@
+# Microsoft Developer Studio Generated Dependency File, included by client.mak
+
+.\client.cpp : \
+	".\client.h"\
+	".\clientDlg.h"\
+	".\StdAfx.h"\
+	
+
+.\client.rc : \
+	".\res\client.ico"\
+	".\res\client.rc2"\
+	
+
+.\clientDlg.cpp : \
+	".\client.h"\
+	".\clientDlg.h"\
+	".\StdAfx.h"\
+	
+
+.\StdAfx.cpp : \
+	".\StdAfx.h"\
+	

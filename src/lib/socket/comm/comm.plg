@@ -1,0 +1,51 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: comm - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "E:\Windows\TEMP\RSP2051.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR"Debug/" /Fp"Debug/comm.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"Y:\root\haison\comm\Config.cpp"
+"Y:\root\haison\comm\log.cpp"
+"Y:\root\haison\comm\main.cpp"
+"Y:\root\haison\comm\socket.cpp"
+]
+Creating command line "cl.exe @E:\Windows\TEMP\RSP2051.tmp" 
+Creating temporary file "E:\Windows\TEMP\RSP2052.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/comm.pdb" /debug /machine:I386 /out:"Debug/comm.exe" /pdbtype:sept 
+.\Debug\Config.obj
+.\Debug\log.obj
+.\Debug\main.obj
+.\Debug\socket.obj
+]
+Creating command line "link.exe @E:\Windows\TEMP\RSP2052.tmp"
+<h3>Output Window</h3>
+Compiling...
+Config.cpp
+y:\root\haison\comm\inc.h(7) : fatal error C1083: Cannot open include file: 'arpa/inet.h': No such file or directory
+log.cpp
+y:\root\haison\comm\inc.h(7) : fatal error C1083: Cannot open include file: 'arpa/inet.h': No such file or directory
+main.cpp
+y:\root\haison\comm\inc.h(7) : fatal error C1083: Cannot open include file: 'arpa/inet.h': No such file or directory
+socket.cpp
+Y:\root\haison\comm\socket.cpp(1) : error C2871: 'std' : does not exist or is not a namespace
+y:\root\haison\comm\inc.h(7) : fatal error C1083: Cannot open include file: 'arpa/inet.h': No such file or directory
+Error executing cl.exe.
+Creating command line "bscmake.exe /nologo /o"Debug/comm.bsc"  .\Debug\Config.sbr .\Debug\log.sbr .\Debug\main.sbr .\Debug\socket.sbr"
+Creating browse info file...
+BSCMAKE: error BK1506 : cannot open file '.\Debug\Config.sbr': No such file or directory
+Error executing bscmake.exe.
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+comm.exe - 6 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

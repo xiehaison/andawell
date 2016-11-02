@@ -1,0 +1,10 @@
+# Microsoft Developer Studio Generated Dependency File, included by clientsocket.mak
+
+.\clientsocket.cpp : \
+	".\clientsocket.h"\
+	".\StdAfx.h"\
+	
+
+.\StdAfx.cpp : \
+	".\StdAfx.h"\
+	

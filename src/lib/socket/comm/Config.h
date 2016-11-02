@@ -1,0 +1,15 @@
+// Config.h: interface for the CConfig class.
+//
+//////////////////////////////////////////////////////////////////////
+#pragma once
+
+#if !defined(AFX_CONFIG_H__B670A596_5827_436C_8961_0104114AD3FD__INCLUDED_)
+#define AFX_CONFIG_H__B670A596_5827_436C_8961_0104114AD3FD__INCLUDED_
+
+
+int GetPrivateProfileInt(char* lpAppName, char* lpKeyName, int nDefault, char *lpFileName);
+int GetPrivateProfileString(char* lpAppName, char* lpKeyName, char* lpDefault, char* lpReturnedString, unsigned int nSize, char* lpFileName);
+
+
+
+#endif // !defined(AFX_CONFIG_H__B670A596_5827_436C_8961_0104114AD3FD__INCLUDED_)
