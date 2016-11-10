@@ -1,0 +1,32 @@
+# Microsoft Developer Studio Generated Dependency File, included by comm.mak
+
+.\comm.cpp : \
+	"..\include\atomcmd.h"\
+	"..\include\basedef.h"\
+	"..\include\commpack.h"\
+	"..\include\ctidef.h"\
+	"..\utillib\buf.h"\
+	"..\utillib\Common.h"\
+	"..\utillib\Crc32Static.h"\
+	".\comm.h"\
+	".\commsdk.h"\
+	".\IniFile.h"\
+	
+
+.\comm.rc : \
+	".\res\comm.rc2"\
+	
+
+..\utillib\Crc32Static.cpp : \
+	"..\utillib\Common.h"\
+	"..\utillib\Crc32Static.h"\
+	
+
+.\IniFile.cpp : \
+	".\IniFile.h"\
+	
+
+.\StdAfx.cpp : \
+	"..\..\..\program files (x86)\microsoft visual studio\vc98\include\basetsd.h"\
+	".\StdAfx.h"\
+	

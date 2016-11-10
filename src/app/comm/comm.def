@@ -1,0 +1,18 @@
+; comm.def : Declares the module parameters for the DLL.
+
+LIBRARY      "comm"
+DESCRIPTION  'comm Windows Dynamic Link Library'
+
+EXPORTS
+    ; Explicit exports can go here
+	LoadConfig
+	
+	ConnectCenter
+	GetConnectResult
+	
+	SendPacket
+
+
+	HookRecvCmd
+	HookConnStatus
+
