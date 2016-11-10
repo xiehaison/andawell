@@ -15,8 +15,6 @@
 
 // CDbClientDlg ¶Ô»°¿ò
 
-
-
 CDbClientDlg::CDbClientDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CDbClientDlg::IDD, pParent)
     , m_start_flag(0)

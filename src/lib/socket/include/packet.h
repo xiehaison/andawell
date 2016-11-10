@@ -9,6 +9,7 @@
 #define COMM_CONNECTED  1
 #define COMM_BROKEN		0
 #define MAX_FILENAME_LENGTH 256
+
 const short int RECV = 1<<8;
 const short int SEND = 2<<8;
 const short int PACKET_HEAD=0x7FFE;

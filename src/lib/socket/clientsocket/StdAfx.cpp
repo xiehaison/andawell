@@ -9,13 +9,13 @@
 #include <statreg.cpp>
 #endif
 
-#include <atlimpl.cpp>
-
+//#include <atlimpl.cpp>
+using namespace std;
 #include <time.h>
 #include <sys/timeb.h>
 #include <stdio.h>
-#include <iostream.h>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 
 
 

@@ -1,13 +1,12 @@
 // CommSocket.cpp : implementation file
 //
-
 #include "stdafx.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
 #include <sys/timeb.h>
-#include <iostream.h>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 
 #include "resource.h"
 #include "CommSocket.h"
