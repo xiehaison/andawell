@@ -1,0 +1,48 @@
+#ifndef __COMM_H__
+#define __COMM_H__
+
+class S_Comm{
+public:
+    S_Comm()
+    {
+        memset(m_ipaddr,0,sizeof(m_ipaddr));
+        m_port = 0;
+        m_sockfd = -1;
+    }
+    ~S_Comm()
+    {
+        memset(m_ipaddr,0,sizeof(m_ipaddr));
+        m_port = 0;
+        m_sockfd = -1;
+    }
+    
+    void SetData(char *ipaddr,int port,int sockfd)    
+    {
+        strcpy(m_ipaddr,ipaddr);
+        m_port = port;
+        m_sockfd = sockfd;        
+    }
+    
+    int GetSockfd()
+    {
+        return m_sockfd;
+    }
+    
+    char *GetIP()
+    {
+        return m_ipaddr;
+    }
+    
+    int GetPort()
+    {
+        return m_port;
+    }
+    
+private:
+    char m_ipaddr[256];
+    int m_port;
+    int m_sockfd;
+};
+
+
+#endif//__COMM_H__
