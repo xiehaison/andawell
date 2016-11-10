@@ -56,8 +56,10 @@ BOOL CAdoDB::OpenDB()
                            "./DBGate.ini");
 
 	char strConnect[512];
-	sprintf(strConnect,"provider = sqloledb;server=%s;database=%s;"
-			,szServer,szDef);
+    sprintf(strConnect, "provider = sqloledb;server=%s;database=%s;"
+        , szServer, szDef);
+    //sprintf(strConnect, "provider = OraOLEDB.Oracle;server=%s;database=%s;"
+    //    , szServer, szDef);
 
 	try{
 		HRESULT hr=_ctp->Open(_bstr_t(strConnect),_bstr_t(szUser),_bstr_t(szPassword),adOptionUnspecified);

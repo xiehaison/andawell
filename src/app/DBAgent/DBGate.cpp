@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "DBGate.h"
 #include "DBGateDlg.h"
-#include "license.h"
 #include "inifile.h"
 
 #ifdef _DEBUG

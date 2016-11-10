@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by DBGate.rc
+// Microsoft Visual C++ 生成的包含文件。
+// 供 DBGate.rc 使用
 //
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
@@ -24,10 +24,12 @@
 #define IDC_BUTTON_DB                   1006
 #define IDC_BUTTON_DB2                  1007
 #define IDC_BUTTON_CONFIG               1007
+#define IDC_BUTTON_DB3                  1008
 #define IDC_EDIT1                       1009
 #define IDC_EDIT2                       1010
 #define IDC_EDIT3                       1011
 #define IDC_CHECK1                      1012
+#define IDC_LIST_BUF2                   1013
 #define IDC_EDIT4                       1014
 #define IDC_BUTTON_VIEW                 1016
 
