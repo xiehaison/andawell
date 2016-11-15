@@ -41,13 +41,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CCltSock member functions
 
+
 void CCltSock::OnClose(int nErrorCode) 
 {
 	// TODO: Add your specialized code here and/or call the base class
-	Close();
     char s[256];
-    sprintf(s,"node: %d,dir:%d,连接中断",gComm.m_Node,m_dir);
-    gNotify(s,0);
+    sprintf(s,"node: %d,dir:%d,连接关闭",gComm.m_Node,m_dir);
+    F_Notify(s, gComm.m_Node, m_dir,E_ERROR_CLOSE);
+    Close();
     delete this;
 	CSocket::OnClose(nErrorCode);
 }
@@ -68,11 +69,10 @@ BOOL CCltSock::OnMessagePending()
 		if (msg.wParam == (UINT) m_nTimerID)
 		{
 			// Remove the message and call CancelBlockingCall.
-			::PeekMessage(&msg, NULL, WM_TIMER, WM_TIMER, PM_REMOVE);
-			CancelBlockingCall();
-//          Close();
-//          delete this;
-			return FALSE;  
+            ::PeekMessage(&msg, NULL, WM_TIMER, WM_TIMER, PM_REMOVE);
+            CancelBlockingCall();
+            ShutDown();
+            return FALSE;
 			// No need for idle time processing.
 		}
 	}

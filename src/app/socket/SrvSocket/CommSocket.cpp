@@ -122,7 +122,10 @@ void CCommSocket::OnReceive(int nErrorCode)
         char msu[1500];
         memset(msu,0,1500);
         
-        SetTimeOut();
+        if (!SetTimeOut()){
+            CloseAll();
+            return;
+        };
         
         Receive(&head,2);
         if(head!= PACKET_HEAD)
@@ -200,7 +203,7 @@ void CCommSocket::OnConnect(int nErrorCode)
 	// TODO: Add your specialized code here and/or call the base class
     if (gpCallBackNotify)
     {
-        gpCallBackNotify(m_node,m_dir|1);
+        gpCallBackNotify(m_node, m_dir | COMM_CONNECTED);
     }
 	CSocket::OnConnect(nErrorCode);
 }

@@ -1,9 +1,17 @@
 // clientDlg.h : header file
 //
 
+#include "afxwin.h"
 #if !defined(AFX_CLIENTDLG_H__CC6A4E9D_D70C_4A35_AEF4_AA01BE3A127D__INCLUDED_)
 #define AFX_CLIENTDLG_H__CC6A4E9D_D70C_4A35_AEF4_AA01BE3A127D__INCLUDED_
 
+#include "DbTest.H"
+#include "MonTest.h"
+#include "APPTest.h"
+#include "CtrlTest.h"
+
+
+#include "afxcmn.h"
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
@@ -31,6 +39,11 @@ public:
 	CString	m_cin_channel;
 	CString	m_msgtype;
 	CString	m_msgchan;
+    int bconn;
+    CDBTest     m_dbtest;
+    CAPPTest    m_apptest;
+    CMonTest    m_montest;
+    CCtrlTest   m_ctrltest;
 	//}}AFX_DATA
 
 	void Output(LPCTSTR line, ...)
@@ -83,12 +96,26 @@ protected:
 	afx_msg void OnCallout();
 	afx_msg void OnHungUP();
 	afx_msg void OnSendMSG();
-	afx_msg void OnBreak();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:
-    afx_msg void OnBnClickedButton1();
+    afx_msg void OnBnClickedSendsql();
+    afx_msg void OnTimer(UINT_PTR nIDEvent);
+    afx_msg LRESULT OnSockRecv(WPARAM wparam, LPARAM lparam);
+    afx_msg LRESULT OnSockStatus(WPARAM wparam, LPARAM lparam);
+
+    afx_msg void OnDestroy();
+    CTabCtrl m_tab;
+    afx_msg void OnSize(UINT nType, int cx, int cy);
+    void Adjust();
+
+    afx_msg void OnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult);
+    afx_msg void OnBnClickedClear();
+
 };
+
+extern CClientDlg* g_Dlg;
+
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

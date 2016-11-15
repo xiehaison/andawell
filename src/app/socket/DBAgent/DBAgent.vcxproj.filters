@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AdoDB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DBAgent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IniFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DBAgentDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket_Send.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket_Recv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AdoDB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DBAgent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket_Recv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DBAgentDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket_Send.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IniFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\SrvSocket\Debug\SrvSocket.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="DBAgent.ini" />
+    <CustomBuild Include="res\DBAgent.rc2">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\FauxS-X (Cobalt) Icon 1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\FauxS-X (Cobalt) Icon 10.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\FauxS-X (Cobalt) Icon 11.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\FauxS-X (Cobalt) Icon 12.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\FauxS-X (Cobalt) Icon 13.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\FauxS-X (Cobalt) Icon 14.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icon7.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\DBAgent.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\database.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{2e9c4c06-a594-4d8e-81f9-1c879f382309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{f25b07be-28ba-4d3b-8e41-96d941104f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8b0a7995-081e-4a21-ab13-2a06da03bd62}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DBAgent.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

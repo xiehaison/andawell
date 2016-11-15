@@ -241,7 +241,7 @@ echo Warning : Cannot register Unicode DLL on Windows 95
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <StructMemberAlignment>1Byte</StructMemberAlignment>
     </ClCompile>
     <Midl>
@@ -252,11 +252,9 @@ echo Warning : Cannot register Unicode DLL on Windows 95
     </ResourceCompile>
     <Bscmake />
     <Link>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>../outp/clientsocket.dll</OutputFile>
       <ImportLibrary>.\Debug\clientsocket.lib</ImportLibrary>
       <ModuleDefinitionFile>.\clientsocket.def</ModuleDefinitionFile>
     </Link>

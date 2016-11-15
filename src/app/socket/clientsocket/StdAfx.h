@@ -29,6 +29,14 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 
+#include "../..\\include\\commpack.h"
+#include "../..\\include\\basedef.h"
+#include "../..\\include\\ctidef.h"
+
+void F_Notify(char *msg, int node, int dir, int notify);
+
+
+
 
 void Output(LPCTSTR DbgMessage,...);
 

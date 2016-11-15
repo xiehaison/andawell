@@ -102,12 +102,33 @@ CClientComm gComm;
 OnMsg gMsg = NULL;
 OnNotify gNotify = NULL;
 
-int StartClient(const char *rip,int rport,int node)
+LPTSTR ConvertErrorCodeToString(DWORD ErrorCode)
+{
+    HLOCAL LocalAddress = NULL;
+    FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL, ErrorCode, 0, (LPTSTR)&LocalAddress, 0, NULL);
+    return (LPTSTR)LocalAddress;
+}
+
+void F_Notify(char *msg,int node,int dir,int notify)
+{
+    T_MsgNotify m_msg;
+    strcpy(m_msg.msg, msg);
+    m_msg.node = node;
+    m_msg.dir = dir;
+    m_msg.notify = notify;
+    gNotify((char*)&m_msg, notify);
+}
+
+
+DWORD StartClient(const char *rip,int rport,int node)
 {
 
 	AFX_MANAGE_STATE(AfxGetStaticModuleState())
 		
 		USES_CONVERSION;
+    DWORD err = 0;
+    gComm.Init();
 	if (!AfxSocketInit())
 	{
 		Output("AfxSocketInit failed!");
@@ -118,40 +139,51 @@ int StartClient(const char *rip,int rport,int node)
 	
 	CCltSock *psock = new CCltSock;
 	if(!psock->Create()){
-		Output("socket create error:%d!",GetLastError());		
+        err = GetLastError();
+		Output("socket create error:%d!",err);		
 		delete psock;
         return -1;
 	}
 
 	if(!psock->Connect(rip,rport)){
-		Output("socket connect error,ip:%s,port:%d,node:%d,error:%d",rip,rport,node,GetLastError());
+        err = GetLastError();
+        Output("socket connect error,ip:%s,port:%d,node:%d,error:%d,strerr=%s", rip, rport, node, err, ConvertErrorCodeToString(err));
         delete psock;
-		return -1;
+		return err;
 	}
 	
 	regnode.m_dir = RECV;
 	regnode.m_node = node;
 	if ( !psock->Send(&regnode,sizeof(regnode)) ){
-		Output("send register packet error,node:%d,dir:%d,error:%d!",node,GetLastError());
+        err = GetLastError();
+
+		Output("send register packet error,node:%d,dir:%d,error:%d!",node,err);
         delete psock;
-		return -1;
+		return err;
 	}
 	S_RegNodeAck regack;
 
-	gNotify("Recv register answer packet!",0);
-	psock->SetTimeOut();
+	//gNotify("Recv register answer packet!",0);
+    if (!psock->SetTimeOut())
+    {
+        F_Notify("Recv SetTimeOut failed!", node,RECV,E_ERROR_REG);
+        delete psock;
+        return -1;
+    }
 	int len=psock->Receive(&regack,sizeof(regack));
 	psock->KillTimeOut();
 	if (psock->m_hSocket == -1)
 	{
-		Output("Registed failed,socket closed!");
+        F_Notify("Registed failed,recv socket error !", node, RECV,E_ERROR_REG);
+        Output("Registed failed,socket closed!");
         delete psock;
 		return -1;
 	}
 
 	if (len<sizeof(regack))
 	{
-		Output("Registed failed! packet len error");
+        F_Notify("Registed failed,recv socket  包长度错误!", node, RECV, E_ERROR_REG);
+        Output("Registed failed! packet len error");
         delete psock;
 		return -1;		
 	}
@@ -159,15 +191,15 @@ int StartClient(const char *rip,int rport,int node)
 	if (regack.m_result != REGRESULT_OK)
 	{
 		Output("Registed failed,recv socket refused!");
-		gNotify("Registed failed,recv socket refused!",0);
+        F_Notify("Registed failed,recv sock 服务器拒绝!", node, RECV, E_ERROR_REG);
         delete psock;
 		return -1;
 	}
 
 	if (gNotify)
 	{
-		gNotify("接收SOCKET已连接",0);
-	}
+        F_Notify("recv Registed ok!", node, RECV, E_ERROR_REG);
+    }
     psock->m_dir = RECV;
 	gComm.m_pRecvSock = psock;
 
@@ -175,46 +207,51 @@ int StartClient(const char *rip,int rport,int node)
 	
     if ( !psock->Create() )
     {
-        Output("send socket create failed!");
+        F_Notify("Registed failed,send socket create error!", node, SEND, E_ERROR_REG);
         delete psock;
         return -1;
     }
     if(!psock->Connect(rip,rport))
     {
-        Output("send socket connect failed!");
+        F_Notify("Registed failed,send socket connect error!", node, SEND, E_ERROR_REG);
         delete psock;
         return -1;
     }
 	regnode.m_dir = SEND;
 	regnode.m_node = node;
 	psock->Send(&regnode,sizeof(regnode));
-	psock->SetTimeOut();
+    if (!psock->SetTimeOut()){
+        F_Notify("Registed failed,send socket timeout error!", node, SEND, E_ERROR_REG);
+        delete psock;
+        return -1;
+    }
 	len=psock->Receive(&regack,sizeof(regack));
 	psock->KillTimeOut();
 	if (psock->m_hSocket == -1)
 	{
-		Output("Registed failed,socket closed!");
+        F_Notify("Registed failed,send socket Error!!", node, SEND, E_ERROR_REG);
         delete psock;
 		return -1;
 	}
 	
 	if (len<sizeof(regack))
 	{
-		Output("Registed failed! packet len error");
+        F_Notify("Registed failed,注册包长度错误!!", node, SEND, E_ERROR_REG);
         delete psock;
-		return -1;		
+		return -2;		
 	}
 	
 	if (regack.m_result!=REGRESULT_OK)
 	{
-		Output("Registed failed,send socket refused!");
+        F_Notify("Registed failed,send socket refused!!", node, SEND, E_ERROR_REG);
         delete psock;
-		return -1;
+		return -3;
 	}
 	if (gNotify)
 	{
-		gNotify("发送SOCKET已连接",0);
-	}
+        //gNotify("发送SOCKET已连接", E_SEND_OK);
+        F_Notify("send Registed ok!" , node, SEND, E_SEND_OK);
+    }
     psock->m_dir = SEND;
     gComm.m_Node = node;
 	gComm.m_pSendSock = psock;
@@ -250,7 +287,7 @@ int SendPacket(const char *msg,short int len)
 		int l = gComm.m_pSendSock->Send( &msg[len-send], len);
 		if ( l < 0 )
 		{
-			gNotify("SendPacket send socket error",0);
+            gNotify("SendPacket send socket error", E_ERROR_SEND);
 			return -1;
 		}
 		else if(l == 0){
@@ -272,20 +309,8 @@ int CloseAll()
     AFX_MANAGE_STATE(AfxGetStaticModuleState())
         
         USES_CONVERSION;
+    gComm.Close();
 
-    if (gComm.m_pRecvSock )
-    {
-        if (gComm.m_pRecvSock->m_hSocket != -1)
-            gComm.m_pRecvSock->ShutDown();
-        gComm.m_pRecvSock = NULL;
-    }
-    if (gComm.m_pSendSock )
-    {
-        if (gComm.m_pSendSock->m_hSocket != -1)
-            gComm.m_pSendSock->ShutDown();
-        gComm.m_pSendSock = NULL;
-    }
-	gComm.m_Node = -1;
 	return 0;
 }
 

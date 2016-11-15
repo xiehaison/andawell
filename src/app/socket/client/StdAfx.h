@@ -22,6 +22,17 @@
 #include <afxsock.h>		// MFC socket extensions
 
 
+
+#include "../..\\include\\commpack.h"
+#include "../..\\include\\basedef.h"
+#include "../..\\include\\ctidef.h"
+#include <afxcontrolbars.h>
+#include "../clientsocket/clientsock.h"
+
+#include "MonTest.h"
+#include "APPTest.h"
+#include "CtrlTest.h"
+
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 

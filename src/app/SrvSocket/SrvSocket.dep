@@ -1,0 +1,26 @@
+# Microsoft Developer Studio Generated Dependency File, included by SrvSocket.mak
+
+.\CommSocket.cpp : \
+	".\CommSocket.h"\
+	".\SrvComm.h"\
+	
+
+.\LsnSocket.cpp : \
+	".\CommSocket.h"\
+	".\LsnSocket.h"\
+	".\SrvComm.h"\
+	
+
+.\SrvSocket.cpp : \
+	".\SrvSocket.h"\
+	".\SrvSocket_i.c"\
+	
+
+.\SrvSocket.rc : \
+	".\SrvSocket.tlb"\
+	
+
+.\StdAfx.cpp : \
+	"..\..\program files (x86)\microsoft visual studio\vc98\include\basetsd.h"\
+	".\StdAfx.h"\
+	

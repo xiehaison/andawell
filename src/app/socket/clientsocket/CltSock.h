@@ -71,21 +71,29 @@ public:
         m_pRecvSock = NULL;
         m_Node = -1;
     }
+
+    void Init()
+    {
+        m_pSendSock = NULL;
+        m_pRecvSock = NULL;
+        m_Node = -1;
+    }
     virtual ~CClientComm(){};
     void Close()
     {
         if (m_pSendSock)
         {
-            delete m_pSendSock;
-            m_pSendSock = NULL;
+            if (m_pSendSock->m_hSocket != -1){
+                m_pSendSock->ShutDown();
+            }
         }
-        
+
         if (m_pRecvSock)
         {
-            delete m_pRecvSock;
-            m_pRecvSock = NULL;
+            if (m_pRecvSock->m_hSocket != -1){
+                m_pRecvSock->ShutDown();
+            }
         }
-        m_Node = -1;
         return;
     }
 protected:;

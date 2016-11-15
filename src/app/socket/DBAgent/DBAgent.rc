@@ -1,0 +1,226 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\DBAgent.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDD_DBGATE_DIALOG       ICON                    "res\\icon7.ico"
+IDR_MAINFRAME           ICON                    "res\\DBAgent.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG 0, 0, 286, 129
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 DBAgent"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,16,12,21,21
+    LTEXT           "DBAgent 1.0 版 作者：解海宁",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2003",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "关闭",IDOK,236,111,43,14,WS_GROUP
+    LTEXT           "警告:本计算机程序受著作权法和国际公约的保护。未经授权擅自复制或传播",IDC_STATIC,7,101,269,8
+    LTEXT           "本程序的部分或全部将遭到在法律许可的范围内最大可能起诉。",IDC_STATIC,7,113,225,8
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN | WS_BORDER,7,95,269,1
+    LTEXT           "123",IDC_STATIC,13,48,165,8
+    LTEXT           "修订纪录",IDC_STATIC,14,37,33,8
+END
+
+IDD_DBGATE_DIALOG DIALOGEX 0, 0, 486, 327
+STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "数据库代理服务器"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    CONTROL         "List1",IDC_LIST_COMMAND,"SysListView32",LVS_REPORT | WS_BORDER | WS_TABSTOP,7,73,66,66
+    CONTROL         "List1",IDC_LIST_CHANNEL,"SysListView32",LVS_REPORT | NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP,75,73,66,67
+    CONTROL         "List1",IDC_LIST_COMMANDSERIAL,"SysListView32",LVS_REPORT | NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP,142,73,66,66
+    CONTROL         "List1",IDC_LIST_SENDSERIAL,"SysListView32",LVS_REPORT | NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP,210,73,66,66
+    CONTROL         "List1",IDC_LIST_BUF,"SysListView32",LVS_REPORT | NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP,278,73,66,66
+    PUSHBUTTON      "取消",IDCANCEL,429,306,50,14,NOT WS_VISIBLE
+    LTEXT           "数据库连接：",IDC_STATIC,216,10,49,8
+    LTEXT           "客户端:",IDC_STATIC,317,10,29,8
+    LTEXT           "Recv:",IDC_STATIC,403,10,21,8,NOT WS_VISIBLE
+    CONTROL         "Tab1",IDC_TAB1,"SysTabControl32",0x0,7,23,189,39
+    PUSHBUTTON      "开始",IDC_BUTTON_DB,391,299,36,14,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDIT1,269,6,40,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT2,348,6,49,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT3,426,6,49,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE
+    LTEXT           "查看通道：",IDC_STATIC,76,10,41,8
+    EDITTEXT        IDC_EDIT4,118,6,25,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "配置",IDC_BUTTON_CONFIG,36,6,36,14
+    PUSHBUTTON      "察看",IDC_BUTTON_VIEW,145,6,24,14
+    DEFPUSHBUTTON   "确定",IDOK,429,290,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "开始",IDC_BUTTON_DB3,7,6,29,14
+    CONTROL         "",IDC_LIST_BUF2,"SysListView32",LVS_REPORT | NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP,357,75,66,66
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "梁继前 2003-12-3 于北京"
+            VALUE "CompanyName", "森泰克数据通信技术"
+            VALUE "FileDescription", "数据库代理"
+            VALUE "FileVersion", "2.0"
+            VALUE "InternalName", "DBGate"
+            VALUE "LegalCopyright", "版权所有 (C) 2003"
+            VALUE "LegalTrademarks", "1+1"
+            VALUE "OriginalFilename", "DBGate.EXE"
+            VALUE "ProductName", "DBGate 应用程序"
+            VALUE "ProductVersion", "2.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 279
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 125
+    END
+
+    IDD_DBGATE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 479
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 320
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "关于 DBAgent(&A)..."
+    IDP_SOCKETS_INIT_FAILED "Windows 通信端口初始化失败。"
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\DBAgent.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -89,7 +89,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <StructMemberAlignment>1Byte</StructMemberAlignment>
     </ClCompile>
     <Midl>
@@ -105,12 +105,16 @@
     <Bscmake />
     <Link>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>../outp/client.exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="APPTest.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="clientDlg.cpp" />
+    <ClCompile Include="CtrlTest.cpp" />
+    <ClCompile Include="DBTest.cpp" />
+    <ClCompile Include="MonTest.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</PrecompiledHeaderFile>
@@ -120,8 +124,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\packet.h" />
+    <ClInclude Include="APPTest.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="clientDlg.h" />
+    <ClInclude Include="CtrlTest.h" />
+    <ClInclude Include="DBTest.h" />
+    <ClInclude Include="MonTest.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>

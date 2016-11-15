@@ -6,6 +6,10 @@
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
 #define IDD_DIALOG1                     129
+#define IDD_APP_TEST                    129
+#define IDD_DB_Test                     131
+#define IDD_CTRL_TEST                   132
+#define IDD_MON_TEST                    133
 #define IDC_Output                      1000
 #define IDC_RIP                         1001
 #define IDC_RPORT                       1002
@@ -23,14 +27,25 @@
 #define IDC_EDIT2                       1015
 #define IDC_BREAK                       1016
 #define IDC_BUTTON1                     1017
+#define IDC_Clear                       1017
+#define IDC_SendSql                     1017
+#define IDC_SendGetField                1017
+#define IDC_Channel                     1018
+#define IDC_SendPrepare                 1019
+#define IDC_SendClose                   1020
+#define IDC_SendMoveBy                  1021
+#define IDC_SendExec                    1022
+#define IDC_SQL_STR                     1023
+#define IDC_TAB1                        1024
+#define IDC_EDIT1                       1025
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        131
+#define _APS_NEXT_RESOURCE_VALUE        135
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1018
+#define _APS_NEXT_CONTROL_VALUE         1026
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
