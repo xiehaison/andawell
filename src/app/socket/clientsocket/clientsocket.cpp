@@ -303,7 +303,6 @@ int SendPacket(const char *msg,short int len)
 }
 
 
-
 int CloseAll()
 {
     AFX_MANAGE_STATE(AfxGetStaticModuleState())

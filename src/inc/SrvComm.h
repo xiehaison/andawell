@@ -4,6 +4,19 @@
 #pragma once
 #pragma pack(1)
 
+struct T_MsgServer{
+    int node;
+    char *msg;
+    int len;
+};
+
+
+struct T_MsgNotifyServer{
+    int node;
+    int notify;
+};
+
+
 typedef void (* OnMsg)(int node,char *msg,int len);
 typedef void (* OnNotify)(int node,int notify);
 

@@ -14,6 +14,10 @@ int SetHook(OnMsg msg,OnNotify notify);
 int SendPacket(int node,char *pack,int len);
 int SendPacket1(int node,char *pack,int len);
 
+int GetData();
+
+
+
 #pragma pack()
 
 #endif //__SRVCOMM_H__

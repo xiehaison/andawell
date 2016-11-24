@@ -527,22 +527,9 @@ void CDBGateDlg::OnButtonView()
 	OnKillfocusEdit4();
 }
 
-
-struct T_Msg{
-    int node;
-    char *msg;
-    int len;
-};
-
-
-struct T_MsgNotify{
-    int node;
-    int notify;
-};
-
 void MyOnMsg(int node, char *msg, int len)
 {     
-    T_Msg m_msg;
+    T_MsgServer m_msg;
     m_msg.msg = new char[len];  
     memcpy(m_msg.msg, msg, len);
     m_msg.len = len;
@@ -555,7 +542,7 @@ void MyOnMsg(int node, char *msg, int len)
 
 void MyOnNotify(int node, int notify)
 {
-    T_MsgNotify m_msg;
+    T_MsgNotifyServer m_msg;
     m_msg.notify = notify;
     m_msg.node = node;
     ::SendMessage(AfxGetMainWnd()->m_hWnd, WM_SockRecvStatus, (WPARAM)&m_msg, NULL);
@@ -564,17 +551,17 @@ void MyOnNotify(int node, int notify)
 
 LRESULT CDBGateDlg::OnSockRecv(WPARAM wparam, LPARAM lparam)
 {
-    T_Msg *msg = (T_Msg *)wparam;
-    char *szBuf = msg->msg;
-    int  len = msg->len;
-    m_recv.TakeApartPack(szBuf, len);
+    T_MsgServer *msg = (T_MsgServer *)wparam;
+    //char *szBuf = msg->msg;
+    //int  len = msg->len;
+    m_recv.TakeApartPack(msg);
     return 0;
 }
 
 
 LRESULT CDBGateDlg::OnSockRecvStatus(WPARAM wparam, LPARAM lparam)
 {
-    T_MsgNotify *msg = (T_MsgNotify *)wparam;
+    T_MsgNotifyServer *msg = (T_MsgNotifyServer *)wparam;
     int  node = msg->node;
     int  notify = msg->notify;
     m_recv.m_node = node;

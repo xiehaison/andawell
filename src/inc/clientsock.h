@@ -9,28 +9,33 @@
 #define E_ERROR_CLOSE   -3
 
 
-struct T_Msg{
+typedef struct {
     char *msg;
     int len;
-};
+}T_Msg;
 
 
-struct T_MsgNotify{
+typedef struct {
     char msg[255];
     int node;
     int dir;
     int notify;
-};
+}T_MsgNotify;
 
 
-typedef void (* OnMsg)(char *msg,int len);
-typedef void (* OnNotify)(char *msg,int code);
+//
+//typedef void (* OnMsg)(char *msg,int len);
+//typedef void (* OnNotify)(char *msg,int code);
 
 DWORD StartClient(const char *rip,int rport,int note);
-int SetHook(OnMsg msg,OnNotify notify);
+//int SetHook(OnMsg msg,OnNotify notify);
 
 int SendPacket(const char *pack,short int len);
-int SendPacket1(const char *pack,short int len);
+//int SendPacket1(const char *pack, short int len); 
+void TcpSockSend(void *buf, int len);
+
+bool GetRecvMsg(BYTE *buf, WORD len);
+bool GetRecv(BYTE *buf, WORD len);
 int CloseAll();
 
 #endif//__CLIENTSOCK_H__

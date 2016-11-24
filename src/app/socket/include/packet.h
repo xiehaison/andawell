@@ -423,6 +423,7 @@ struct S_MessagePacket{
     }
 };
 
+
 #ifdef xxxxx
 
 char *OutputTypeString(S_MessagePacket *msgpack)

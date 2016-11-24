@@ -90,7 +90,8 @@ extern CLsnSocket gLsnSocket;
 void CCommSocket::OnClose(int nErrorCode) 
 {
 	// TODO: Add your specialized code here and/or call the base class
-    OutputLog("node %d, socket %04X closed",m_node,m_dir);
+    CSocket::OnClose(nErrorCode);
+    OutputLog("node %d, socket %04X closed", m_node, m_dir);
     if (gpCallBackNotify)
     {
         char s[256];
@@ -98,17 +99,16 @@ void CCommSocket::OnClose(int nErrorCode)
         gpCallBackNotify(m_node,m_dir);
     }  
     Close();
+    if (gLsnSocket.m_pSockRecv[m_node] == this)
+    {
+        gLsnSocket.m_pSockRecv[m_node] = NULL;
+    }
+    if (gLsnSocket.m_pSockSend[m_node] == this)
+    {
+        gLsnSocket.m_pSockSend[m_node] = NULL;
+    }
     delete this;
-    if (gLsnSocket.m_pSockRecv == this )
-    {
-        gLsnSocket.m_pSockRecv = NULL;
-    }
-    if (gLsnSocket.m_pSockSend == this )
-    {
-        gLsnSocket.m_pSockSend = NULL;
-    }
 
-    CSocket::OnClose(nErrorCode);
 }
 
 

@@ -109,10 +109,7 @@ public:
 
 	int IsEmpty()
 	{
-		if(m_pTail == m_pHead)
-			return 1;
-		else 
-			return 0;
+		return m_pTail == m_pHead; 
 	}
 
 	~CMyFifo(){};

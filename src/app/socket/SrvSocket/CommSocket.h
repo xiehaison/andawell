@@ -11,6 +11,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CCommSocket command target
+#define MAX_NODE 10000
 
 class CCommSocket : public CSocket
 {

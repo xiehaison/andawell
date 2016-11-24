@@ -24,9 +24,13 @@ extern OnNotify gpCallBackNotify ;
 
 CLsnSocket::CLsnSocket()
 {
-    m_pSockRecv = NULL;
-    m_pSockSend = NULL;
+    for (int i = 0; i < MAX_NODE; i++)
+    {
+        m_pSockRecv[i] = NULL;
+        m_pSockSend[i] = NULL;
+    }
 }
+
 
 
 CLsnSocket::~CLsnSocket()
@@ -60,18 +64,18 @@ void CLsnSocket::OnAccept(int nErrorCode)
 		{
 			if (regnode.m_dir ==  SEND )
 			{
-                if (m_pSockRecv == NULL)
+                if (m_pSockRecv[regnode.m_node] == NULL)
 				{
-                    m_pSockRecv = psock;
-                    m_pSockRecv->m_dir = RECV;
-                    m_pSockRecv->m_node = regnode.m_node;
+                    m_pSockRecv[regnode.m_node] = psock;
+                    m_pSockRecv[regnode.m_node]->m_dir = RECV;
+                    m_pSockRecv[regnode.m_node]->m_node = regnode.m_node;
                     OutputLog("Accept m_pSockRecv handle:%d!",psock->m_hSocket);
 				}
-				else if (m_pSockRecv->m_hSocket == -1 )
+                else if (m_pSockRecv[regnode.m_node]->m_hSocket == -1)
                 {
-                    m_pSockRecv = psock;
-                    m_pSockRecv->m_dir = RECV;
-                    m_pSockRecv->m_node = regnode.m_node;
+                    m_pSockRecv[regnode.m_node] = psock;
+                    m_pSockRecv[regnode.m_node]->m_dir = RECV;
+                    m_pSockRecv[regnode.m_node]->m_node = regnode.m_node;
                     OutputLog("Accept m_pSockRecv handle:%d!",psock->m_hSocket);
                 }
 				else{
@@ -83,18 +87,18 @@ void CLsnSocket::OnAccept(int nErrorCode)
 			}
 			else if ( regnode.m_dir == RECV )
 			{
-				if (m_pSockSend == NULL)
+                if (m_pSockSend[regnode.m_node] == NULL)
 				{
-                    m_pSockSend = psock;
-                    m_pSockSend->m_dir = SEND;
-                    m_pSockSend->m_node = regnode.m_node;
+                    m_pSockSend[regnode.m_node] = psock;
+                    m_pSockSend[regnode.m_node]->m_dir = SEND;
+                    m_pSockSend[regnode.m_node]->m_node = regnode.m_node;
                     OutputLog("Accept m_pSockSend handle:%d!",psock->m_hSocket);
 				}
-                else if (m_pSockSend->m_hSocket == INVALID_SOCKET )
+                else if (m_pSockSend[regnode.m_node]->m_hSocket == INVALID_SOCKET)
                 {
-                    m_pSockSend = psock;
-                    m_pSockSend->m_dir = SEND;
-                    m_pSockSend->m_node = regnode.m_node;
+                    m_pSockSend[regnode.m_node] = psock;
+                    m_pSockSend[regnode.m_node]->m_dir = SEND;
+                    m_pSockSend[regnode.m_node]->m_node = regnode.m_node;
                     OutputLog("Accept m_pSockSend handle:%d!",psock->m_hSocket);
                 }
 				else{
@@ -127,46 +131,51 @@ void CLsnSocket::OnAccept(int nErrorCode)
 void CLsnSocket::OnClose(int nErrorCode) 
 {
 	// TODO: Add your specialized code here and/or call the base class
-    if ( m_pSockRecv )
-    {
-        if (m_pSockRecv->m_hSocket != -1)
-        {   
-            m_pSockRecv->ShutDown();
+    CSocket::OnClose(nErrorCode);
+    for (int i = 0; i < MAX_NODE; i++){
+        if (m_pSockRecv[i])
+        {
+            if (m_pSockRecv[i]->m_hSocket != -1)
+            {
+                m_pSockRecv[i]->ShutDown();
+            }
         }
-    }
 
-    if (m_pSockSend)
-    {
-        if (m_pSockSend->m_hSocket != -1)
-        {   
-            m_pSockSend->ShutDown();
+        if (m_pSockSend)
+        {
+            if (m_pSockSend[i]->m_hSocket != -1)
+            {
+                m_pSockSend[i]->ShutDown();
+            }
         }
+        Close();
     }
-    Close();	
-	CSocket::OnClose(nErrorCode);
 }
 
 
 int CloseAll()
 { 
 
-    if(gLsnSocket.m_hSocket == -1)
+    if (gLsnSocket.m_hSocket == -1)
     {
         return 0;
     }
-    if (gLsnSocket.m_pSockRecv && gLsnSocket.m_pSockRecv->m_hSocket != -1)
-    {
-        gLsnSocket.m_pSockRecv->ShutDown();
-    }
-    if (gLsnSocket.m_pSockSend && gLsnSocket.m_pSockSend->m_hSocket != -1)
-    {
-        gLsnSocket.m_pSockSend->ShutDown(0);
-    }
+    for (int i = 0; i < MAX_NODE; i++){
+
+        if (gLsnSocket.m_pSockRecv[i] && gLsnSocket.m_pSockRecv[i]->m_hSocket != -1)
+        {
+            gLsnSocket.m_pSockRecv[i]->ShutDown();
+        }
+        if (gLsnSocket.m_pSockSend[i] && gLsnSocket.m_pSockSend[i]->m_hSocket != -1)
+        {
+            gLsnSocket.m_pSockSend[i]->ShutDown(0);
+        }
+    }	
     if (gLsnSocket.m_hSocket != -1)
     {
         gLsnSocket.ShutDown();
     }
-	return 0;
+    return 0;
 }
 
 
@@ -194,19 +203,19 @@ int StartSrv(int port,int max_user)
 
 int SendPacket(int node,char *pack,int len)
 {
-    if (!gLsnSocket.m_pSockSend){
+    if (!gLsnSocket.m_pSockSend[node]){
         OutputLog("send socket released!");
         return -1;
     }
-	if( gLsnSocket.m_pSockSend->m_node == node && gLsnSocket.m_pSockSend->m_hSocket != -1){
+    if (gLsnSocket.m_pSockSend[node]  && gLsnSocket.m_pSockSend[node]->m_hSocket != -1){
 		int sent = len;
 		while( sent ){
 			
-            gLsnSocket.m_pSockSend->Send( &PACKET_HEAD,sizeof(PACKET_HEAD));
-			gLsnSocket.m_pSockSend->Send( &len, 2);
-            OutputLog("SendPacket handle:%d",gLsnSocket.m_pSockSend->m_hSocket);
+            gLsnSocket.m_pSockSend[node]->Send(&PACKET_HEAD, sizeof(PACKET_HEAD));
+            gLsnSocket.m_pSockSend[node]->Send(&len, 2);
+            OutputLog("SendPacket handle:%d", gLsnSocket.m_pSockSend[node]->m_hSocket);
             
-			int sendlen = gLsnSocket.m_pSockSend->Send(&pack[len-sent],sent);
+            int sendlen = gLsnSocket.m_pSockSend[node]->Send(&pack[len - sent], sent);
 			if (sendlen < 0)
 			{
 				OutputLog("SendPacket Send error:%d",GetLastError());
@@ -230,19 +239,19 @@ int SendPacket(int node,char *pack,int len)
 
 int SendPacket1(int node,char *pack,int len)
 {
-    if (!gLsnSocket.m_pSockRecv){
+    if (!gLsnSocket.m_pSockRecv[node]){
         OutputLog("send socket released!");
         return -1;
     }
-    if( gLsnSocket.m_pSockRecv->m_node == node && gLsnSocket.m_pSockRecv->m_hSocket != -1){
+    if (gLsnSocket.m_pSockRecv[node] && gLsnSocket.m_pSockRecv[node]->m_hSocket != -1){
         int sent = len;
         while( sent ){
             
-            gLsnSocket.m_pSockRecv->Send( &PACKET_HEAD,sizeof(PACKET_HEAD));
-            gLsnSocket.m_pSockRecv->Send( &len, 2);
-            OutputLog("SendPacket handle:%d",gLsnSocket.m_pSockRecv->m_hSocket);
+            gLsnSocket.m_pSockRecv[node]->Send(&PACKET_HEAD, sizeof(PACKET_HEAD));
+            gLsnSocket.m_pSockRecv[node]->Send(&len, 2);
+            OutputLog("SendPacket handle:%d", gLsnSocket.m_pSockRecv[node]->m_hSocket);
             
-            int sendlen = gLsnSocket.m_pSockRecv->Send(&pack[len-sent],sent);
+            int sendlen = gLsnSocket.m_pSockRecv[node]->Send(&pack[len - sent], sent);
             if (sendlen < 0)
             {
                 OutputLog("m_pSockRecv Send error:%d",GetLastError());

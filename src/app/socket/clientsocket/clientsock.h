@@ -23,6 +23,8 @@ struct T_MsgNotify{
 };
 
 
+
+
 typedef void (* OnMsg)(char *msg,int len);
 typedef void (* OnNotify)(char *msg,int code);
 
@@ -30,7 +32,9 @@ DWORD StartClient(const char *rip,int rport,int note);
 int SetHook(OnMsg msg,OnNotify notify);
 
 int SendPacket(const char *pack,short int len);
-int SendPacket1(const char *pack,short int len);
+int SendPacket1(const char *pack, short int len); 
+
+
 int CloseAll();
 
 #endif//__CLIENTSOCK_H__

@@ -3,6 +3,9 @@
 
 #include "AdoDB.h"	// Added by ClassView
 #include "Socket_Send.h"	// Added by ClassView
+#include "srvcomm.h"
+
+
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
@@ -19,8 +22,11 @@ class CSocket_Recv : public CAsyncSocket
 public:
     DWORD nPackLength;
 	char szPackBuf[1024*4];
-	void TakeApartPack(char *szReceive,int nLength);
-	void ParsePacket(char *szPack);
+//	void TakeApartPack(char *szReceive,int nLength);
+    //void ParsePacket(char *szPack);
+    void ParsePacket(T_MsgServer &msg);
+    void DisplayPack(T_MsgServer &msg);
+    void SendToNote(T_MsgServer &msg);
 
 // Attributes
 public:
@@ -43,11 +49,15 @@ public:
 	void WriteBillDB(DBPacket pak,int chan);
 	void CheckCommandState();
 	void WriteLog(char *des);
-	void SendToServer(DBPacket &pak);
-	void DisplayPack(char * szPack);
+    void SendToServer(DBPacket &pak);
+    void SendToServer(DBPacket &pak,int note);
+    void DisplayPack(char * szPack);
 	CSocket_Send m_send;
 	void ConnectServer();
 	void Initialize();
+    void TakeApartPack(T_MsgServer *pmsg);
+    void SendToServer(T_MsgServer &msg);
+
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CSocket_Recv)
 	public:

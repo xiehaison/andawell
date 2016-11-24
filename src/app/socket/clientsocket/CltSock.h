@@ -59,6 +59,59 @@ public:
 protected:
 };
 
+
+#define MAX_QUEUE 2048
+
+template <class T>
+class CMyFifo{
+public:
+    T queue[MAX_QUEUE];
+    int	 m_pHead;
+    int  m_pTail;
+    bool m_seizure;
+public:
+    CMyFifo()
+    {
+        m_pHead = 0;
+        m_pTail = 0;
+        memset(queue, 0, sizeof(T)*MAX_QUEUE);
+    }
+
+    void RemoveHead(T &msg)
+    {
+        memcpy(&msg, &queue[m_pHead], sizeof(T));
+        m_pHead++;
+        if (m_pHead >= MAX_QUEUE)
+            m_pHead = 0;
+    }
+
+    void GetHead(T &msg)
+    {
+        memcpy(&msg, &queue[m_pHead], sizeof(T));
+    }
+
+    void RemoveAll()
+    {
+        m_pHead = 0;
+        m_pTail = 0;
+        memset(queue, 0, sizeof(T)*MAX_QUEUE);
+    }
+
+    int AddTail(T f1)
+    {
+        if (GetCount() == MAX_QUEUE - 1){
+            return -1;
+        }
+        memcpy(&queue[m_pTail], &f1, sizeof(T));
+        m_pTail++;
+        if (m_pTail >= MAX_QUEUE)
+            m_pTail = 0;
+
+        return m_pTail;
+    }
+};
+
+
 class CClientComm:public  CObject
 {
 public:

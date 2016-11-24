@@ -8,7 +8,7 @@
 //
 
 #include "CommSocket.h"
-
+//#defined MAX_NODE 10000
 void OutputLog(LPCTSTR DbgMessage,...);
 
 /////////////////////////////////////////////////////////////////////////////
@@ -48,8 +48,8 @@ public:
 
 // Implementation
 public:
-    CCommSocket *m_pSockRecv ;
-    CCommSocket *m_pSockSend ;
+    CCommSocket *m_pSockRecv[MAX_NODE];
+    CCommSocket *m_pSockSend[MAX_NODE];
 };
 
 

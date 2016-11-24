@@ -1182,7 +1182,7 @@ typedef struct{
 
 typedef struct{
 	DWORD HeadFlag;
-	int chan;
+	DWORD chan;
 	DWORD PackType;
 	DWORD SerialNo;
     union{
