@@ -129,6 +129,7 @@
     <ResourceCompile Include="DBAgent.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\packet.h" />
     <ClInclude Include="AdoDB.h" />
     <ClInclude Include="DBAgent.h" />
     <ClInclude Include="DBAgentDlg.h" />

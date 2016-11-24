@@ -19,7 +19,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-    afx_msg void OnBnClickedSendprepare();
+    afx_msg void OnBnClickedSendprepare();  
     afx_msg void OnBnClickedSendGetField();
     afx_msg void OnBnClickedSendmoveby();
     afx_msg void OnBnClickedSendexec();

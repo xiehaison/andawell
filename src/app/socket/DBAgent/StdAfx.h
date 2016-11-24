@@ -21,9 +21,10 @@
 #endif // _AFX_NO_AFXCMN_SUPPORT
 using namespace std;
 #include <afxsock.h>		// MFC socket extensions
-#include "../..\\include\\commpack.h"
-#include "../..\\include\\basedef.h"
-#include "../..\\include\\ctidef.h"
+//#include "../..\\include\\commpack.h"
+//#include "../..\\include\\basedef.h"
+//#include "../..\\include\\ctidef.h"
+#include "../include/packet.h"
 #include <string>
 #include "SrvComm.h"
 //

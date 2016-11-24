@@ -138,7 +138,6 @@ void CCommSocket::OnReceive(int nErrorCode)
         {
             gpCallBackMsg(m_node,msu,msulen);
         }
-        OutputLog("recv msg:%s,handle:%d",((S_MessagePacket*)msu)->OutputTypeString(),m_hSocket);
         KillTimeOut();
     }
 	
