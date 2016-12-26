@@ -10,7 +10,7 @@
 // CAPPTest ¶Ô»°¿ò
 
 IMPLEMENT_DYNAMIC(CAPPTest, CDialogEx)
-
+ 
 CAPPTest::CAPPTest(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CAPPTest::IDD, pParent)
 {

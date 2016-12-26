@@ -20,18 +20,24 @@
 #endif // _AFX_NO_AFXCMN_SUPPORT
 
 #include <afxsock.h>		// MFC socket extensions
-
-
-
-#include "../..\\include\\commpack.h"
-#include "../..\\include\\basedef.h"
-#include "../..\\include\\ctidef.h"
 #include <afxcontrolbars.h>
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0602
+#endif
+
+
 #include "../clientsocket/clientsock.h"
+#include "../include/packet.h"
+#include "chartctrl.h"
 
 #include "MonTest.h"
 #include "APPTest.h"
 #include "CtrlTest.h"
+#include "DBTest.h"
+#include "clientDlg.h"
+
+extern CClientDlg *g_Dlg;
+
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

@@ -13,6 +13,17 @@
       <UniqueIdentifier>{a5e869a7-4722-40a2-90f2-238c7bad8191}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
+    <Filter Include="chartctrl">
+      <UniqueIdentifier>{3f2d1aa1-bec5-4c2b-a544-3789bfabc069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="chartctrl\header">
+      <UniqueIdentifier>{0cdae257-edf0-409e-9349-e44095d0cb67}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="chartctrl\source">
+      <UniqueIdentifier>{285948a9-3f07-4e18-9265-a1a9647db43e}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="client.cpp">
@@ -34,6 +45,78 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MonTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartXYSerie.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartTitle.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartSurfaceSerie.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartStandardAxis.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartSerie.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartScrollBar.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartPointsSerie.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartLogarithmicAxis.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartLineSerie.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartLegend.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartGrid.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartGradient.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartGanttSerie.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartFont.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartDragLineCursor.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartDateTimeAxis.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartCursor.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartCtrl.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartCrossHairCursor.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartCandlestickSerie.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartBarSerie.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartAxisLabel.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChartCtrl\ChartAxis.cpp">
+      <Filter>chartctrl\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\packet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,6 +148,99 @@
     <ClInclude Include="MonTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ChartCtrl\PointsOrdering.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartXYSerie.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartTitle.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartSurfaceSerie.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartString.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartStandardAxis.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartSeriesMouseListener.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartSerieBase.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartSerie.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartScrollBar.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartPointsSerie.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartPointsArray.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartMouseListener.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartLogarithmicAxis.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartLineSerie.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartLegend.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartLabel.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartGrid.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartGradient.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartGanttSerie.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartFont.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartDragLineCursor.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartDateTimeAxis.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartCursor.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartCtrl.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartCrossHairCursor.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartCandlestickSerie.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartBarSerie.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartBalloonLabel.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartAxisLabel.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChartCtrl\ChartAxis.h">
+      <Filter>chartctrl\header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\client.ico">
@@ -83,5 +259,19 @@
     <CustomBuild Include="res\client.rc2">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\ChartCtrl\ChartSerieBase.inl">
+      <Filter>chartctrl\header</Filter>
+    </None>
+    <None Include="..\ChartCtrl\ChartPointsArray.inl">
+      <Filter>chartctrl\header</Filter>
+    </None>
+    <None Include="..\ChartCtrl\ChartLabel.inl">
+      <Filter>chartctrl\header</Filter>
+    </None>
+    <None Include="..\ChartCtrl\ChartBalloonLabel.inl">
+      <Filter>chartctrl\header</Filter>
+    </None>
   </ItemGroup>
 </Project>

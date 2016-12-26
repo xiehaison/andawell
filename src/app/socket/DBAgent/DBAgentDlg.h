@@ -5,6 +5,8 @@
 #define AFX_DBGATEDLG_H__F88C6B15_156A_48BA_AE6A_5184DFBC5A91__INCLUDED_
 
 #include "Socket_Recv.h"	// Added by ClassView
+#include "AppAgent.h"
+
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
@@ -13,9 +15,9 @@
 // CDBGateDlg dialog
 
 void MyOnMsg(int node, char *msg, int len);
-void MyOnNotify(int node, int notify);
+void MyOnNotify(int node, int notify,char *msg);
 
-
+  
 class CDBGateDlg : public CDialog
 {
 public:
@@ -37,6 +39,7 @@ public:
 	CListCtrl	m_sendserial;
 	CListCtrl	m_channel;
 	CListCtrl	m_listCommand;
+    CAppAgent   m_appagent;
 	CTabCtrl	m_tab;
 	//}}AFX_DATA
 
@@ -61,7 +64,6 @@ protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT nIDEvent);
 	afx_msg void OnButtonDb();
-	virtual void OnOK();
 	afx_msg void OnKillfocusEdit4();
 	afx_msg void OnDblclkListCommandserial(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnDblclkListBuf(NMHDR* pNMHDR, LRESULT* pResult);
@@ -74,6 +76,8 @@ public:
     afx_msg LRESULT OnSockRecv(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnSockRecvStatus(WPARAM wparam, LPARAM lparam);
 
+    // //客户端数量
+    int m_clientnum;
 };
 
 //{{AFX_INSERT_LOCATION}}

@@ -7,7 +7,9 @@
 // LsnSocket.h : header file
 //
 
-#include "CommSocket.h"
+#include "SrvSocket.h"
+#include "commsocket.h"
+#include "SrvComm.h"
 //#defined MAX_NODE 10000
 void OutputLog(LPCTSTR DbgMessage,...);
 
@@ -21,7 +23,8 @@ public:
 
 // Operations
 public:
-	CLsnSocket();
+    CLsnSocket();
+    
 	virtual ~CLsnSocket();
 
 // Overrides
@@ -31,25 +34,28 @@ public:
 	public:
 	virtual void OnAccept(int nErrorCode);
 	virtual void OnClose(int nErrorCode);
+    void release(int node)
+    {
+        if (node < 0)
+            return;
+        if (m_Sock[node].m_hSocket != INVALID_SOCKET)
+        {
+            m_Sock[node].ShutDown(2);
+        }
+    }
+
+
 	//}}AFX_VIRTUAL
 
 	// Generated message map functions
 	//{{AFX_MSG(CLsnSocket)
 		// NOTE - the ClassWizard will add and remove member functions here.
 	//}}AFX_MSG
-/*
-	public:
-		BOOL SetTimeOut(UINT uTimeOut=1000);
-		BOOL KillTimeOut();
-	private:
-		LONGLONG m_llDtStart;
-		UINT  m_uTimeOut; 
-*/
-
 // Implementation
 public:
-    CCommSocket *m_pSockRecv[MAX_NODE];
-    CCommSocket *m_pSockSend[MAX_NODE];
+    CCommSocket m_Sock[MAX_NODE];
+    CCommSocket sock;
+
 };
 
 

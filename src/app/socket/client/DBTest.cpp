@@ -6,6 +6,7 @@
 #include "DBTest.h"
 #include "afxdialogex.h"
 
+#include "../include/packet.h"
 
 // CDBTest ¶Ô»°¿ò
 
@@ -62,7 +63,7 @@ void SendDBUdpateField(int chan, BYTE ind, int vType, int iValue,double fValue, 
     memset(&pak, 0, sizeof(pak));
     pak.chan = chan;
     pak.HeadFlag = 0xeffffffe;
-    pak.PackType = PAK_UPDATEFIELD;
+    pak.PackType = IC_UPDATEFIELD;
     pak.req_updatefield.vType = vType;
     pak.req_updatefield.FieldInd = ind;
 
@@ -125,7 +126,7 @@ void SendDBSetParam(int chan, BYTE ind, BYTE InOut, int vType, int iValue,double
     memset(&pak, 0, sizeof(pak));
     pak.chan = chan;
     pak.HeadFlag = 0xeffffffe;
-    pak.PackType = PAK_SETPARA;
+    pak.PackType = IC_SETPARA;
     pak.req_SetPara.vType = vType;
     pak.req_SetPara.FieldInd = ind;
     pak.req_SetPara.InOut = InOut;
@@ -178,7 +179,7 @@ void SendDBGetParamOut(int chan, int ind, int type, DWORD& sno)
     sno = GetTickCount();
     pak.SerialNo = sno;
     pak.HeadFlag = 0xeffffffe;
-    pak.PackType = PAK_GETPARAMOUT_REQ;
+    pak.PackType = IC_GETPARAMOUT_REQ;
     pak.req_GetField.vType = type;
     pak.req_GetField.FieldInd = ind;
     SendPacket((char*)&pak, sizeof(DBPacket));
@@ -190,7 +191,7 @@ void SendDBClose(int chan)
     memset(&pak, 0, sizeof(pak));
     pak.chan = chan;
     pak.HeadFlag = 0xeffffffe;
-    pak.PackType = PAK_CLOSE;
+    pak.PackType = IC_CLOSE;
     SendPacket((char*)&pak, sizeof(DBPacket));
 }
 
@@ -202,7 +203,7 @@ void SendDBPrepare(int chan, LPCTSTR sql, DWORD& sno)
     sno = GetTickCount();
     pak.chan = chan;
     pak.HeadFlag = 0xeffffffe;
-    pak.PackType = PAK_PREPARESQL;
+    pak.PackType = IC_PREPARESQL;
     pak.SerialNo = sno;
     strncpy(pak.sqlstat, sql, sizeof(pak.sqlstat));
     SendPacket((char*)&pak, sizeof(DBPacket));
@@ -217,7 +218,7 @@ void SendDBSqlExec(int chan, DWORD& sno)
     pak.chan = chan;
     pak.HeadFlag = 0xeffffffe;
     pak.SerialNo = sno;
-    pak.PackType = PAK_SQLEXEC;
+    pak.PackType = IC_SQLEXEC;
     SendPacket((char*)&pak, sizeof(DBPacket));
 }
 
@@ -229,7 +230,7 @@ void SendDBSqlOpen(int chan, DWORD& sno)
     memset(&pak, 0, sizeof(pak));
     pak.chan = chan;
     pak.HeadFlag = 0xeffffffe;
-    pak.PackType = PAK_SQLOPEN;
+    pak.PackType = IC_SQLOPEN;
     sno = GetTickCount();
     pak.SerialNo = sno;
     SendPacket((char*)&pak, sizeof(DBPacket));
@@ -244,7 +245,7 @@ void SendDBGetField(int chan, int ind, int type, DWORD& sno)
     pak.chan = chan;
     pak.SerialNo = sno;
     pak.HeadFlag = 0xeffffffe;
-    pak.PackType = PAK_GETFIELD_REQ;
+    pak.PackType = IC_GETFIELD_REQ;
     pak.req_GetField.vType = type;
     pak.req_GetField.FieldInd = ind;
     SendPacket((char*)&pak, sizeof(DBPacket));
@@ -260,9 +261,10 @@ void SendDBMoveBy(int chan, int MoveBy, DWORD& sno)
     pak.SerialNo = sno;
     pak.chan = chan;
     pak.HeadFlag = 0xeffffffe;
-    pak.PackType = PAK_MOVENEXT;
+    pak.PackType = IC_MOVENEXT;
     pak.req_MoveBy.MoveBy = MoveBy;
     SendPacket((char*)&pak, sizeof(DBPacket));
+    DWORD type = GetMsgType((S_Msg_Header*)&pak);
 }
 
 

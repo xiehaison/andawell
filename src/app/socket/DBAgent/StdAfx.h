@@ -21,17 +21,14 @@
 #endif // _AFX_NO_AFXCMN_SUPPORT
 using namespace std;
 #include <afxsock.h>		// MFC socket extensions
-//#include "../..\\include\\commpack.h"
-//#include "../..\\include\\basedef.h"
-//#include "../..\\include\\ctidef.h"
-#include "../include/packet.h"
 #include <string>
-#include "SrvComm.h"
-//
-//void MyOnMsg(int node, char *msg, int len);
-//void MyOnNotify(int node, int notify);
+#include <afxcontrolbars.h>
 
 
+#include "../srvsocket/srvcomm.h"
+#include "../include/packet.h"
+
+void RunLog(const char* line, ...);
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

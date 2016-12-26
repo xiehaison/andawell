@@ -5,7 +5,6 @@
 #include "DBAgent.h"
 #include "DBAgentDlg.h"
 
-#include "srvcomm.h"
 
 
 #ifdef _DEBUG
@@ -14,8 +13,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif 
 
-#define WM_SockRecv WM_USER+1
-#define WM_SockRecvStatus WM_USER+2
+#define WM_SockRecv         WM_USER+1
+#define WM_SockRecvStatus   WM_USER+2
 
 
 
@@ -69,6 +68,7 @@ END_MESSAGE_MAP()
 
 CDBGateDlg::CDBGateDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CDBGateDlg::IDD, pParent)
+    , m_clientnum(0)
 {
 	//{{AFX_DATA_INIT(CDBGateDlg)
 	//}}AFX_DATA_INIT
@@ -79,15 +79,17 @@ CDBGateDlg::CDBGateDlg(CWnd* pParent /*=NULL*/)
 
 void CDBGateDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CDBGateDlg)
-	DDX_Control(pDX, IDC_LIST_BUF, m_buf);
-	DDX_Control(pDX, IDC_LIST_COMMANDSERIAL, m_commandserial);
-	DDX_Control(pDX, IDC_LIST_SENDSERIAL, m_sendserial);
-	DDX_Control(pDX, IDC_LIST_CHANNEL, m_channel);
-	DDX_Control(pDX, IDC_LIST_COMMAND, m_listCommand);
-	DDX_Control(pDX, IDC_TAB1, m_tab);
-	//}}AFX_DATA_MAP
+    CDialog::DoDataExchange(pDX);
+    //{{AFX_DATA_MAP(CDBGateDlg)
+    DDX_Control(pDX, IDC_LIST_BUF, m_buf);
+    DDX_Control(pDX, IDC_LIST_COMMANDSERIAL, m_commandserial);
+    DDX_Control(pDX, IDC_LIST_SENDSERIAL, m_sendserial);
+    DDX_Control(pDX, IDC_LIST_CHANNEL, m_channel);
+    DDX_Control(pDX, IDC_LIST_COMMAND, m_listCommand);
+    DDX_Control(pDX, IDC_TAB1, m_tab);
+    //}}AFX_DATA_MAP
+    DDX_Text(pDX, IDC_Client, m_clientnum);
+	DDV_MinMaxInt(pDX, m_clientnum, 0, MAX_NODE);
 }
 
 BEGIN_MESSAGE_MAP(CDBGateDlg, CDialog)
@@ -164,29 +166,10 @@ BOOL CDBGateDlg::OnInitDialog()
 	m_sendserial.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_GRIDLINES);
 	m_buf.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_GRIDLINES);
 
-//	m_imagelist1.Create(16,16,ILC_COLOR,5,0);
-
-	
-//	m_imagelist1.Add(AfxGetApp()->LoadIcon(IDI_ICON6));
-//	m_imagelist1.Add(AfxGetApp()->LoadIcon(IDI_ICON2));
-//	m_imagelist1.Add(AfxGetApp()->LoadIcon(IDI_ICON3));
-//	m_imagelist1.Add(AfxGetApp()->LoadIcon(IDI_ICON4));
-//	m_imagelist1.Add(AfxGetApp()->LoadIcon(IDI_ICON5));
-//	m_imagelist1.Add(AfxGetApp()->LoadIcon(IDR_MAINFRAME));
-
-//	m_tab.SetImageList(&m_imagelist1);
-//	m_listCommand.SetImageList(&m_imagelist1,LVSIL_SMALL);
-//	m_channel.SetImageList(&m_imagelist1,LVSIL_SMALL);
-//	m_commandserial.SetImageList(&m_imagelist1,LVSIL_SMALL);
-//	m_sendserial.SetImageList(&m_imagelist1,LVSIL_SMALL);
-//	m_buf.SetImageList(&m_imagelist1,LVSIL_SMALL);
-	
-
-
-	init_control();	
+    //m_appagent.Create(IDD_APPAGENT, &m_tab);
+    m_appagent.Create(IDD_APPAGENT, this);
+    init_control();
 	adjust();
-
-	//
 
 	SetTimer(1,1000,NULL);
 	SetTimer(2,1000,NULL);
@@ -246,9 +229,10 @@ HCURSOR CDBGateDlg::OnQueryDragIcon()
 void CDBGateDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult) 
 {
 	// TODO: Add your control notification handler code here
-	CListCtrl * p[]={&m_listCommand,&m_commandserial,&m_buf};
+    CWnd * p[] = { &m_listCommand, &m_commandserial, &m_buf, &m_channel, &m_sendserial, &m_appagent };
 	int iCur = m_tab.GetCurSel();
-	for(int i=0;i<sizeof(p)/4;++i)
+    int size = sizeof(p) / sizeof(CWnd*);
+	for(int i=0; i<size; ++i)
 	{
 		if(i == iCur)
 			p[i]->ShowWindow(SW_SHOW);
@@ -280,12 +264,14 @@ void CDBGateDlg::adjust()
 	m_channel.MoveWindow(rect);
 	m_commandserial.MoveWindow(rect);
 	m_sendserial.MoveWindow(rect);
-	m_buf.MoveWindow(rect);
+    m_buf.MoveWindow(rect);
+    m_appagent.MoveWindow(rect);
+
 }
 
 void CDBGateDlg::init_control()
 {
-	char szTabHead[][21]={"Command状态","命令序列","缓存区状态"};
+	char szTabHead[][21]={"Command状态","命令序列","缓存区状态","命令参数","发送队列","应用代理"};
 
 	for(int i=0;i<sizeof(szTabHead)/21;++i)
 		m_tab.InsertItem(i,szTabHead[i],i);
@@ -300,7 +286,7 @@ void CDBGateDlg::init_control()
 
 		//插入列
 		char szBuf[255];
-		int iSize = GetPrivateProfileInt("chan","cnt",0,"./DBAgent.ini");
+		int iSize = GetPrivateProfileInt("Node","total_cnt",0,"./DBAgent.ini");
 		for(int i=0;i<iSize;++i)
 		{
 			m_listCommand.InsertItem(i,itoa(i,szBuf,10),0);
@@ -319,7 +305,7 @@ void CDBGateDlg::init_control()
 
 		//插入列
 		char szBuf[255];
-		int iSize = GetPrivateProfileInt("chan","cnt",0,"./DbAgent.ini");
+        int iSize = GetPrivateProfileInt("Node", "total_cnt", 0, "./DBAgent.ini");
 		for( int i=0;i<iSize;++i)
 			m_channel.InsertItem(i,itoa(i,szBuf,10),0);
 	}	
@@ -378,7 +364,6 @@ void CDBGateDlg::OnTimer(UINT nIDEvent)
 				for(int j=1000-50;j>0;j--)
 				{
 					m_commandserial.DeleteItem(j);
-
 				}
 				m_commandserial.EnsureVisible(m_commandserial.GetItemCount()-1,0);
 			}
@@ -391,7 +376,6 @@ void CDBGateDlg::OnTimer(UINT nIDEvent)
 				}
 				m_buf.EnsureVisible(m_buf.GetItemCount()-1,0);
 			}
-				
 		}
 		break;
 	case 2://监控socket连接；
@@ -407,6 +391,7 @@ void CDBGateDlg::OnTimer(UINT nIDEvent)
 
 			//0,关闭 1，正在连接 2，已经连接
 			char szS[][21]={"关闭","正在连接...","已经连接"};
+            int iSize = GetPrivateProfileInt("Node", "total_cnt", 0, "./DBAgent.ini");
 //			GetDlgItem(IDC_EDIT2)->SetWindowText(szS[m_recv.status]);
 //			GetDlgItem(IDC_EDIT3)->SetWindowText(szS[m_recv.m_send.status]);
 		}
@@ -459,13 +444,6 @@ void CDBGateDlg::OnButtonDb()
 	}
 
 	
-}
-
-void CDBGateDlg::OnOK() 
-{
-	// TODO: Add extra validation here
-	
-//	CDialog::OnOK();
 }
 
 
@@ -530,31 +508,84 @@ void CDBGateDlg::OnButtonView()
 void MyOnMsg(int node, char *msg, int len)
 {     
     T_MsgServer m_msg;
-    m_msg.msg = new char[len];  
     memcpy(m_msg.msg, msg, len);
     m_msg.len = len;
     m_msg.node = node;
     ::SendMessage(AfxGetMainWnd()->m_hWnd, WM_SockRecv, (WPARAM)&m_msg, NULL);
-    delete m_msg.msg;
 }
 
 
 
-void MyOnNotify(int node, int notify)
+void MyOnNotify(int node, int notify,char *msg)
 {
     T_MsgNotifyServer m_msg;
     m_msg.notify = notify;
     m_msg.node = node;
+    memcpy(m_msg.msg, msg, sizeof(m_msg.msg));
+    //SOCKET sock = *(SOCKET *)msg;
+    //struct sockaddr_in peeraddr;
+    //socklen_t len;
+    //getpeername(sock, (sockaddr*)&peeraddr, &len);
+    //CString ip;
+    //ip.Format("%s",inet_ntoa(peeraddr.sin_addr));
     ::SendMessage(AfxGetMainWnd()->m_hWnd, WM_SockRecvStatus, (WPARAM)&m_msg, NULL);
 }
 
 
+DWORD GetMsgType(char *msg)
+{
+    S_Msg_Header *header = (S_Msg_Header *)msg;
+    return header->PackType;
+}
+
 LRESULT CDBGateDlg::OnSockRecv(WPARAM wparam, LPARAM lparam)
 {
     T_MsgServer *msg = (T_MsgServer *)wparam;
-    //char *szBuf = msg->msg;
-    //int  len = msg->len;
-    m_recv.TakeApartPack(msg);
+    DWORD type = GetMsgType(msg->msg);
+    if (type >= IA_START && type < IA_END){
+        switch (type)
+        {
+        case IA_Login:   
+            RunLog("IA_Login                   ");   
+            break; 
+        case IA_LoginResult:   
+            RunLog("IA_LoginResult             ");   
+            break; 
+        case IA_ReqServerInfo:   
+            RunLog("IA_ReqServerInfo           ");   
+            break; 
+        case IA_ReqServerInfoResult:   
+            RunLog("IA_ReqServerInfoResult     ");   
+            break; 
+        case IA_ReqTestMachineInfo:   
+            RunLog("IA_ReqTestMachineInfo      ");   
+            break; 
+        case IA_ReqTestMachineInfoResult:   
+            RunLog("IA_ReqTestMachineInfoResult");   
+            break; 
+        case IA_ReqMonitor:   
+            RunLog("IA_ReqMonitor              ");   
+            break; 
+        case IA_ReqMonitorResult:   
+            RunLog("IA_ReqMonitorResult        ");   
+            break; 
+        case IA_END:   
+            RunLog("IA_END                     ");   
+            break; 
+        }
+    }
+    else if (type >= IB_START && type < IB_END){
+
+    }
+    else if (type >= IC_START && type < IC_END){
+        m_recv.TakeApartPack(msg);
+    }
+    else if (type >= ID_START && type < ID_END){
+    }
+    else if (type >= IE_START && type < IE_END){
+    }
+    else
+        return -1;
     return 0;
 }
 
@@ -564,7 +595,19 @@ LRESULT CDBGateDlg::OnSockRecvStatus(WPARAM wparam, LPARAM lparam)
     T_MsgNotifyServer *msg = (T_MsgNotifyServer *)wparam;
     int  node = msg->node;
     int  notify = msg->notify;
-    m_recv.m_node = node;
+    m_recv.m_node = node; 
+    SOCKET sock = *(SOCKET *)msg->msg;
+    if (notify == (RECV | COMM_CONNECTED))
+    {
+        m_appagent.m_nodelist.SetItemText(node, 1, "已连接");
+        m_clientnum++;
+    }
+    if (notify == (RECV | COMM_BROKEN))
+    {
+        m_appagent.m_nodelist.SetItemText(node, 1, "断开");
+        m_clientnum--;
+    }
+    UpdateData(0);
     return 0;
 }
 
@@ -584,7 +627,9 @@ void CDBGateDlg::OnBnClickedButtonDb3()
     else
     {
         CloseAll();
-        StartSrv(1232, 100);
+        UINT nPort = GetPrivateProfileInt("tcp", "port", 0, "./DBAgent.ini");
+
+        StartSrv(nPort, MAX_NODE);
         SetHook(MyOnMsg, MyOnNotify);
         m_recv.Initialize();
         GetDlgItem(IDC_BUTTON_DB3)->SetWindowText("关闭");

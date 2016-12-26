@@ -15,6 +15,7 @@
 #define IDI_ICON5                       133
 #define IDI_ICON6                       134
 #define IDI_ICON7                       136
+#define IDD_APPAGENT                    137
 #define IDC_TAB1                        1000
 #define IDC_LIST_COMMAND                1001
 #define IDC_LIST_CHANNEL                1002
@@ -27,18 +28,22 @@
 #define IDC_BUTTON_DB3                  1008
 #define IDC_EDIT1                       1009
 #define IDC_EDIT2                       1010
+#define IDC_Client                      1010
 #define IDC_EDIT3                       1011
 #define IDC_LIST_BUF2                   1013
 #define IDC_EDIT4                       1014
 #define IDC_BUTTON_VIEW                 1016
+#define IDC_MsgList                     1018
+#define IDC_NodeList                    1019
+#define IDC_ANIMATE1                    1024
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        137
+#define _APS_NEXT_RESOURCE_VALUE        138
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1017
+#define _APS_NEXT_CONTROL_VALUE         1025
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

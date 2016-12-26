@@ -6,7 +6,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Nov 14 09:55:58 2016
+/* at Mon Dec 26 12:50:43 2016
  */
 /* Compiler settings for clientsocket.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 

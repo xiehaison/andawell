@@ -22,6 +22,9 @@
     <ClCompile Include="StdAfx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AppAgent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdoDB.h">
@@ -51,9 +54,9 @@
     <ClInclude Include="..\include\packet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\..\SrvSocket\Debug\SrvSocket.lib" />
+    <ClInclude Include="AppAgent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="DBAgent.ini" />
@@ -108,5 +111,8 @@
     <ResourceCompile Include="DBAgent.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\SrvSocket\Debug\SrvSocket.lib" />
   </ItemGroup>
 </Project>

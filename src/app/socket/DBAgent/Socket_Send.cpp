@@ -57,7 +57,7 @@ void CSocket_Send::OnConnect(int nErrorCode)
 	{
 		DBPacket pak;
 		pak.HeadFlag=0xeffffffe;
-		pak.PackType=PAK_PROXYINFO;
+		pak.PackType=IC_PROXYINFO;
 		pak.proxyinfo.socktype=1;
 		pak.proxyinfo.proxyno=0;
 		Send((char*)(&pak),sizeof(pak),0);

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "clientsocket", "clientsocket.vcxproj", "{92315808-42EA-48C3-9EF3-F59AE56E8A2A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "clientsocket", "clientsocket.vcxproj", "{BA614718-9B42-4D58-AA9D-B8C135F896BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Unicode Release MinSize|Win32 = Unicode Release MinSize|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Debug|Win32.Build.0 = Debug|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Release MinDependency|Win32.ActiveCfg = Release MinDependency|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Release MinDependency|Win32.Build.0 = Release MinDependency|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Release MinSize|Win32.ActiveCfg = Release MinSize|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Release MinSize|Win32.Build.0 = Release MinSize|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Unicode Debug|Win32.ActiveCfg = Unicode Debug|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Unicode Debug|Win32.Build.0 = Unicode Debug|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Unicode Release MinDependency|Win32.ActiveCfg = Unicode Release MinDependency|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Unicode Release MinDependency|Win32.Build.0 = Unicode Release MinDependency|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Unicode Release MinSize|Win32.ActiveCfg = Unicode Release MinSize|Win32
-		{92315808-42EA-48C3-9EF3-F59AE56E8A2A}.Unicode Release MinSize|Win32.Build.0 = Unicode Release MinSize|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Debug|Win32.Build.0 = Debug|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Release MinDependency|Win32.ActiveCfg = Release MinDependency|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Release MinDependency|Win32.Build.0 = Release MinDependency|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Release MinSize|Win32.ActiveCfg = Release MinSize|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Release MinSize|Win32.Build.0 = Release MinSize|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Unicode Debug|Win32.ActiveCfg = Unicode Debug|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Unicode Debug|Win32.Build.0 = Unicode Debug|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Unicode Release MinDependency|Win32.ActiveCfg = Unicode Release MinDependency|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Unicode Release MinDependency|Win32.Build.0 = Unicode Release MinDependency|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Unicode Release MinSize|Win32.ActiveCfg = Unicode Release MinSize|Win32
+		{BA614718-9B42-4D58-AA9D-B8C135F896BC}.Unicode Release MinSize|Win32.Build.0 = Unicode Release MinSize|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

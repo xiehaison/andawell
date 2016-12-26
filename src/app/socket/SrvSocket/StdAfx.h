@@ -28,8 +28,16 @@ extern CComModule _Module;
 using namespace std;
 #include <iostream>
 #include <fstream>
+void OutputLog(LPCTSTR DbgMessage, ...);
+
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
 #endif // !defined(AFX_STDAFX_H__BF48315A_88D3_4615_AD15_8C452D39DFFE__INCLUDED)
+
+
+
+//#include "lsnsocket.h"
+//extern CLsnSocket gLsnSocket;
+

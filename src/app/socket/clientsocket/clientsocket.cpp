@@ -1,6 +1,5 @@
 // clientsocket.cpp : Implementation of DLL Exports.
 
-
 // Note: Proxy/Stub Information
 //      To build a separate proxy/stub DLL, 
 //      run nmake -f clientsocketps.mk in the project directory.
@@ -110,12 +109,12 @@ LPTSTR ConvertErrorCodeToString(DWORD ErrorCode)
     return (LPTSTR)LocalAddress;
 }
 
-void F_Notify(char *msg,int node,int dir,int notify)
+
+void F_Notify(char *msg,int node,int notify)
 {
     T_MsgNotify m_msg;
-    strcpy(m_msg.msg, msg);
+    strcpy((char *)&m_msg.msg, msg);
     m_msg.node = node;
-    m_msg.dir = dir;
     m_msg.notify = notify;
     gNotify((char*)&m_msg, notify);
 }
@@ -123,138 +122,74 @@ void F_Notify(char *msg,int node,int dir,int notify)
 
 DWORD StartClient(const char *rip,int rport,int node)
 {
-
 	AFX_MANAGE_STATE(AfxGetStaticModuleState())
-		
-		USES_CONVERSION;
+    USES_CONVERSION;
+
     DWORD err = 0;
     gComm.Init();
 	if (!AfxSocketInit())
 	{
-		Output("AfxSocketInit failed!");
+		OutputLog("AfxSocketInit failed!");
 		return FALSE;
 	}	
 
-	S_RegNode regnode;
 	
-	CCltSock *psock = new CCltSock;
-	if(!psock->Create()){
+    if (!gComm.m_Sock.Create()){
         err = GetLastError();
-		Output("socket create error:%d!",err);		
-		delete psock;
+		OutputLog("socket create error:%d!",err);		
+        gComm.Close();
         return -1;
 	}
 
-	if(!psock->Connect(rip,rport)){
+    if (!gComm.m_Sock.Connect(rip, rport)){
         err = GetLastError();
-        Output("socket connect error,ip:%s,port:%d,node:%d,error:%d,strerr=%s", rip, rport, node, err, ConvertErrorCodeToString(err));
-        delete psock;
-		return err;
+        OutputLog("socket connect error,ip:%s,port:%d,node:%d,error:%d,strerr=%s", rip, rport, node, err, ConvertErrorCodeToString(err));
+        gComm.Close();
+		return -2;
 	}
 	
-	regnode.m_dir = RECV;
-	regnode.m_node = node;
-	if ( !psock->Send(&regnode,sizeof(regnode)) ){
+    S_RegNode regnode;
+    regnode.m_node = node;
+    if (!gComm.m_Sock.send(&regnode, sizeof(regnode))){
         err = GetLastError();
-
-		Output("send register packet error,node:%d,dir:%d,error:%d!",node,err);
-        delete psock;
-		return err;
+		OutputLog("send register packet error,node:%d,error:%d!",node,err);
+        gComm.Close();
+		return -3;
 	}
 	S_RegNodeAck regack;
 
-	//gNotify("Recv register answer packet!",0);
-    if (!psock->SetTimeOut())
-    {
-        F_Notify("Recv SetTimeOut failed!", node,RECV,E_ERROR_REG);
-        delete psock;
-        return -1;
-    }
-	int len=psock->Receive(&regack,sizeof(regack));
-	psock->KillTimeOut();
-	if (psock->m_hSocket == -1)
+    int len = gComm.m_Sock.Recv(&regack, sizeof(regack));
+
+    if (len < 0)
 	{
-        F_Notify("Registed failed,recv socket error !", node, RECV,E_ERROR_REG);
-        Output("Registed failed,socket closed!");
-        delete psock;
+        F_Notify("Registed failed,recv socket error !", node, E_ERROR_REG);
+        OutputLog("Registed failed,socket closed!");
+        gComm.Close();
 		return -1;
 	}
 
 	if (len<sizeof(regack))
 	{
-        F_Notify("Registed failed,recv socket  包长度错误!", node, RECV, E_ERROR_REG);
-        Output("Registed failed! packet len error");
-        delete psock;
+        F_Notify("Registed failed,recv socket  包长度错误!", node, E_ERROR_REG);
+        OutputLog("Registed failed! packet len error");
+        gComm.Close();
 		return -1;		
 	}
 
 	if (regack.m_result != REGRESULT_OK)
 	{
-		Output("Registed failed,recv socket refused!");
-        F_Notify("Registed failed,recv sock 服务器拒绝!", node, RECV, E_ERROR_REG);
-        delete psock;
+		OutputLog("Registed failed,recv socket refused!");
+        F_Notify("Registed failed,recv sock 服务器拒绝!", node,  E_ERROR_REG);
+        gComm.Close();
 		return -1;
 	}
 
-	if (gNotify)
-	{
-        F_Notify("recv Registed ok!", node, RECV, E_ERROR_REG);
-    }
-    psock->m_dir = RECV;
-	gComm.m_pRecvSock = psock;
-
-	psock = new CCltSock;
-	
-    if ( !psock->Create() )
-    {
-        F_Notify("Registed failed,send socket create error!", node, SEND, E_ERROR_REG);
-        delete psock;
-        return -1;
-    }
-    if(!psock->Connect(rip,rport))
-    {
-        F_Notify("Registed failed,send socket connect error!", node, SEND, E_ERROR_REG);
-        delete psock;
-        return -1;
-    }
-	regnode.m_dir = SEND;
-	regnode.m_node = node;
-	psock->Send(&regnode,sizeof(regnode));
-    if (!psock->SetTimeOut()){
-        F_Notify("Registed failed,send socket timeout error!", node, SEND, E_ERROR_REG);
-        delete psock;
-        return -1;
-    }
-	len=psock->Receive(&regack,sizeof(regack));
-	psock->KillTimeOut();
-	if (psock->m_hSocket == -1)
-	{
-        F_Notify("Registed failed,send socket Error!!", node, SEND, E_ERROR_REG);
-        delete psock;
-		return -1;
-	}
-	
-	if (len<sizeof(regack))
-	{
-        F_Notify("Registed failed,注册包长度错误!!", node, SEND, E_ERROR_REG);
-        delete psock;
-		return -2;		
-	}
-	
-	if (regack.m_result!=REGRESULT_OK)
-	{
-        F_Notify("Registed failed,send socket refused!!", node, SEND, E_ERROR_REG);
-        delete psock;
-		return -3;
-	}
-	if (gNotify)
-	{
-        //gNotify("发送SOCKET已连接", E_SEND_OK);
-        F_Notify("send Registed ok!" , node, SEND, E_SEND_OK);
-    }
-    psock->m_dir = SEND;
     gComm.m_Node = node;
-	gComm.m_pSendSock = psock;
+	if (gNotify)
+	{
+		F_Notify("recv Registed ok!", node,  E_RECV_OK);
+    }
+
 	return 0;
 }
 
@@ -266,40 +201,46 @@ int SetHook(OnMsg msg,OnNotify notify)
 	return 0;
 }
 
-
-int SendPacket(const char *msg,short int len)
+//参数中len的类型不可随意变,必须是2个字节
+int SendPacket(const char *msg,WORD len)
 {
-    if (!gComm.m_pSendSock)
-    {
-        Output("SendPacket send socket not init!");
-        return -1;
-    }
- 	if (gComm.m_pSendSock->m_hSocket == -1 || gComm.m_pSendSock == NULL)
+    static DWORD count;
+    //回调传回的错误消息,要使用静态变量才不会丢失
+    static char errmsg[1000];
+    int send = 0;
+    if (gComm.m_Sock.m_hSocket == INVALID_SOCKET)
 	{
-		Output("socket not connected!");
+		OutputLog("socket not connected!");
 		return -1;
 	}
-	gComm.m_pSendSock->Send( &PACKET_HEAD,sizeof(PACKET_HEAD));
-	gComm.m_pSendSock->Send( &len, 2);
-	int send = len;
-	while (send>0)
-	{
-		int l = gComm.m_pSendSock->Send( &msg[len-send], len);
-		if ( l < 0 )
-		{
-            gNotify("SendPacket send socket error", E_ERROR_SEND);
-			return -1;
-		}
-		else if(l == 0){
-			Sleep(100);
-			continue;
-		}
-		else{
-			send -= l;
-		}
-	}
+    char sendbuf[MAX_MSG_LEN];
+    memcpy(&sendbuf[0], &PACKET_HEAD, 2);
+    memcpy(&sendbuf[2], &len, 2);
+    memcpy(&sendbuf[4], msg,len);
+    int retry = 0;
 
-	return 0;
+    while (send < len + 4){
+        int size;
+        size = gComm.m_Sock.send(&sendbuf[send], len + 4);
+        if (size < 0)
+        {
+            DWORD error = GetLastError();
+            OutputLog("socket error=%d:%s", error, ConvertErrorCodeToString(error));
+            gComm.Close();
+            return -1;
+        }
+        else if(retry++>10){
+            OutputLog("发送消息次数超限!" );
+            gComm.Close();
+            return -1;
+        }
+        else {
+            send += size;
+        }
+    }
+
+    OutputLog("发送数据成功!count=%d,packsize=%d",count++,len);
+	return len;
 }
 
 

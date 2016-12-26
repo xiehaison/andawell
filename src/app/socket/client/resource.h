@@ -31,21 +31,41 @@
 #define IDC_SendSql                     1017
 #define IDC_SendGetField                1017
 #define IDC_Channel                     1018
+#define IDC_BUTTON2                     1018
 #define IDC_SendPrepare                 1019
+#define IDC_TestChart                   1019
 #define IDC_SendClose                   1020
+#define IDC_TestChart2                  1020
+#define IDC_ClearChart                  1020
 #define IDC_SendMoveBy                  1021
+#define IDC_Start                       1021
 #define IDC_SendExec                    1022
+#define IDC_Pause                       1022
 #define IDC_SQL_STR                     1023
+#define IDC_Close                       1023
 #define IDC_TAB1                        1024
 #define IDC_EDIT1                       1025
+#define IDC_EDIT3                       1026
+#define IDC_ChartCtrl                   1027
+#define IDC_Password                    1028
+#define IDC_EDIT4                       1028
+#define IDC_Username                    1029
+#define IDC_EDIT5                       1029
+#define IDC_Login                       1030
+#define IDC_EDIT6                       1030
+#define IDC_Login2                      1031
+#define IDC_Sync                        1031
+#define IDC_COMBO1                      1031
+#define IDC_MFCCOLORBUTTON1             1032
+#define IDC_COMBO2                      1034
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        135
+#define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1026
+#define _APS_NEXT_CONTROL_VALUE         1033
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -12,5 +12,4 @@ EXPORTS
     SetHook
     CloseAll
     SendPacket
-	SendPacket1
 

@@ -295,6 +295,8 @@ inline char* GetPackName(int type)
 	return "MSG_NONAME";
 }
 
+
+
 //数据库通讯代理使用数据包
 enum{
  PAK_NONE,

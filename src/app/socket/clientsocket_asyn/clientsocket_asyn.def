@@ -1,0 +1,17 @@
+; clientsocket_asyn.def : Declares the module parameters.
+
+LIBRARY      "clientsocket_asyn.DLL"
+
+EXPORTS
+;	DllCanUnloadNow     @1 PRIVATE
+;	DllGetClassObject   @2 PRIVATE
+;	DllRegisterServer   @3 PRIVATE
+;	DllUnregisterServer	@4 PRIVATE
+
+    StartClient
+;    SetHook
+;    SendPacket
+	TcpSockSend
+	CloseAll
+	GetRecvMsg
+	GetNotify

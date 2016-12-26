@@ -45,12 +45,11 @@ END_MESSAGE_MAP()
 void CCltSock::OnClose(int nErrorCode) 
 {
 	// TODO: Add your specialized code here and/or call the base class
-    char s[256];
-    sprintf(s,"node: %d,dir:%d,连接关闭",gComm.m_Node,m_dir);
-    F_Notify(s, gComm.m_Node, m_dir,E_ERROR_CLOSE);
+    char s[256]="连接关闭";
+    F_Notify(s, gComm.m_Node, E_ERROR_CLOSE);
     Close();
-    delete this;
-	CSocket::OnClose(nErrorCode);
+    gComm.m_Node = -1;
+    CSocket::OnClose(nErrorCode);
 }
 
 void CCltSock::OnConnect(int nErrorCode) 
@@ -71,7 +70,7 @@ BOOL CCltSock::OnMessagePending()
 			// Remove the message and call CancelBlockingCall.
             ::PeekMessage(&msg, NULL, WM_TIMER, WM_TIMER, PM_REMOVE);
             CancelBlockingCall();
-            ShutDown();
+            OutputLog("Client OnMessagePending--CancelBlockingCall");
             return FALSE;
 			// No need for idle time processing.
 		}
@@ -83,34 +82,54 @@ void CCltSock::OnOutOfBandData(int nErrorCode)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	
+	CancelBlockingCall();
+    OutputLog("Client OnOutOfBandData--CancelBlockingCall");
 	CSocket::OnOutOfBandData(nErrorCode);
 }
 
-void CCltSock::OnReceive(int nErrorCode) 
+
+#define MAX_MSU_LEN  2048
+#define MAX_BUFFER_SIZE MAX_MSU_LEN*10
+
+void CCltSock::OnReceive(int nErrorCode)
 {
-	// TODO: Add your specialized code here and/or call the base class
-    if (m_dir == RECV)
-    {
-        unsigned short int head;
-        unsigned short int msulen;
-        char msu[1500];
-        memset(msu,0,1500);
-        
-        SetTimeOut();
-        Receive(&head,2);
-        if(head!= 0x7ffe)
-            Close();
-        Receive(&msulen,2);
-        if(msulen > 1500)
-            Close();
-        Receive(msu,msulen);
-        if(gMsg)
+    // TODO: Add your specialized code here and/or call the base class
+    static unsigned count;
+
+    static char msu[MAX_MSU_LEN];
+    static char msubuf[MAX_BUFFER_SIZE];
+    static int tail = 0;
+    bool continue_flag;
+    WORD packhead, packlen;
+//    do{
+        int len = Recv((char*)&msubuf[tail], MAX_BUFFER_SIZE - tail);
+        if (len < 0)
+            return;
+        continue_flag = (len == MAX_BUFFER_SIZE - tail);
+        tail += len;
+        while (tail >4)
         {
-            gMsg(msu,msulen);
+            packhead = *(WORD*)&msubuf[0];
+            if (packhead != PACKET_HEAD){
+                memset(msubuf, 0, sizeof(msubuf));
+                tail = 0;
+                ShutDown(2);
+                return;
+            }
+            packlen = *(WORD*)&msubuf[2];
+            if (packlen > (tail - 4)){
+                break;
+            }
+            memcpy(msu, &msubuf[4], packlen);
+            if (gMsg){
+                gMsg((char*)&msu, packlen);
+                count++;
+                //OutputLog("收到消息!count=%d", count++);
+            }
+            tail -= (packlen + 4);
+            memmove(msubuf, &msubuf[packlen + 4], tail);
         }
-        Output("recv msg:%s",msu);
-        KillTimeOut();
-    }
-	
-	CSocket::OnReceive(nErrorCode);
+ //   } while (continue_flag);
+    OutputLog("收到消息!count=%d", count);
+    CSocket::OnReceive(nErrorCode);
 }

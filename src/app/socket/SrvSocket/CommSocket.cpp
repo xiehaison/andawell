@@ -13,6 +13,7 @@
 
 #include "Srvcomm.h"
 
+SOCKET gSocket;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -38,37 +39,28 @@ void OutputLog(LPCTSTR DbgMessage,...)
 	va_start(args, DbgMessage);
 	_vsnprintf (buf, sizeof(buf), DbgMessage, args);
 	va_end(args);
-	
-	strcat(buf, "\n");
-	char str[512];
-	memset(str, 0, sizeof(str));
-	strcat(str, buf);
-	
-	struct timeb tstruct;
-	ftime( &tstruct );
-	
-	char abuf[1024];
-	memset(abuf,0,1024);
-	sprintf(abuf,"%s(%3u)=>%s",ctime(&tstruct.time),tstruct.millitm,buf);
+    CTime now = CTime::GetCurrentTime();
+    CString ss, s = now.Format("%c");
+    ss.Format("%s(%3u)=>%s\n", s, GetTickCount() % 1000, buf);
 
-	ofstream out("SrvSocket.Tmp");
-	out << abuf << endl;
-	out.flush();
-	out.close();
-	OutputDebugString(abuf);
+	OutputDebugString(ss);
 }
 
 
 CCommSocket::CCommSocket()
 {
 	m_node = -1;
-    m_dir = -1;
 	m_name = "";
 }
 
 
 CCommSocket::~CCommSocket()
 {
+    if (m_hSocket != INVALID_SOCKET)
+    {
+        //ShutDown(2);
+        //Close();
+    }
 }
 
 
@@ -90,102 +82,82 @@ extern CLsnSocket gLsnSocket;
 void CCommSocket::OnClose(int nErrorCode) 
 {
 	// TODO: Add your specialized code here and/or call the base class
-    CSocket::OnClose(nErrorCode);
-    OutputLog("node %d, socket %04X closed", m_node, m_dir);
+    int node = m_node;
+    if (m_hSocket == INVALID_SOCKET)
+        return;
     if (gpCallBackNotify)
     {
-        char s[256];
-        sprintf(s,"%s socket closed!",m_name);
-        gpCallBackNotify(m_node,m_dir);
-    }  
+        gSocket = m_hSocket;
+        gpCallBackNotify(m_node, 0, (char *)&gSocket);
+    }
     Close();
-    if (gLsnSocket.m_pSockRecv[m_node] == this)
-    {
-        gLsnSocket.m_pSockRecv[m_node] = NULL;
-    }
-    if (gLsnSocket.m_pSockSend[m_node] == this)
-    {
-        gLsnSocket.m_pSockSend[m_node] = NULL;
-    }
-    delete this;
-
+    OutputLog("node %d, socket closed", m_node);
+    CSocket::OnClose(nErrorCode);
 }
 
-
-void CCommSocket::OnReceive(int nErrorCode) 
+#define MAX_MSU_LEN  2048
+#define MAX_BUFFER_SIZE MAX_MSU_LEN*10
+void CCommSocket::OnReceive(int nErrorCode)
 {
-	// TODO: Add your specialized code here and/or call the base class
-    if (m_dir == RECV)
-    {
-        unsigned short int head;
-        unsigned short int msulen;
-        char msu[1500];
-        memset(msu,0,1500);
-        
-        if (!SetTimeOut()){
-            CloseAll();
+    // TODO: Add your specialized code here and/or call the base class
+    static DWORD count;
+    char *msu = NULL;
+    WORD head,msulen;
+
+    static WORD tail;
+    static BYTE buf[MAX_BUFFER_SIZE];
+    int len = 0;
+    bool continue_flag = false;
+//    do{
+        len = Recv(&buf[tail], MAX_BUFFER_SIZE - tail);
+
+        if (len < 0){
+            OutputLog("读取包错误!");
+            memset(buf, 0, sizeof(buf));
+            tail = 0;
+            gLsnSocket.release(m_node);
             return;
-        };
-        
-        Receive(&head,2);
-        if(head!= PACKET_HEAD)
-            Close();
-        Receive(&msulen,2);
-        if( msulen > 1500 )
-            Close();
-        Receive(msu,msulen);
-        if(gpCallBackMsg) 
-        {
-            gpCallBackMsg(m_node,msu,msulen);
         }
-        KillTimeOut();
-    }
-	
+        //#define self_test 0
+#ifdef self_test
+        //自环测试
+        send(buf, len);  
+        continue_flag = (len == MAX_BUFFER_SIZE);
+#else   
+        continue_flag = (len == MAX_BUFFER_SIZE - tail);
+        tail += len;
+        while (tail > 4){
+            head = *(WORD*)&buf[0];
+            if (head != PACKET_HEAD){
+                OutputLog("包头错误!请重新连接");
+                memset(buf, 0, sizeof(buf));
+                tail = 0;
+                gLsnSocket.release(m_node);
+                return;
+            }
+            msulen = *(WORD*)&buf[2];
+
+            if (tail < msulen + 4)
+                break;
+
+            msu = (char*)&buf[4];
+            if (gpCallBackMsg)
+                gpCallBackMsg(m_node, msu, msulen);
+            tail -= (msulen + 4);
+            memmove(buf, &buf[msulen + 4], tail);
+        }
+#endif //self_test
+//    }while (continue_flag);
 	CSocket::OnReceive(nErrorCode);
-}
-
-
-BOOL CCommSocket::OnMessagePending() 
-{
-	// TODO: Add your specialized code here and/or call the base class
-	MSG msg;
-	if(::PeekMessage(&msg, NULL, WM_TIMER, WM_TIMER, PM_NOREMOVE))
-	{
-		if (msg.wParam == (UINT) m_nTimerID)
-		{
-			// Remove the message and call CancelBlockingCall.
-
-			::PeekMessage(&msg, NULL, WM_TIMER, WM_TIMER, PM_REMOVE);
-			CancelBlockingCall();
-			return FALSE;  
-			// No need for idle time processing.
-		}
-	}	
-	return CSocket::OnMessagePending();
 }
 
 
 void CCommSocket::OnOutOfBandData(int nErrorCode) 
 {
 	// TODO: Add your specialized code here and/or call the base class
-	OutputLog("OnMessagePending");
+	OutputLog("Server OnOutOfBandData");
 	CancelBlockingCall();
-	ShutDown(0);
-	Close();
 	CSocket::OnOutOfBandData(nErrorCode);
-}
-
-
-BOOL CCommSocket::SetTimeOut(UINT uTimeOut)
-{
-	m_nTimerID = SetTimer(NULL,0,uTimeOut,NULL);
-	return m_nTimerID;
-}
-
-
-BOOL CCommSocket::KillTimeOut()
-{
-	return KillTimer(NULL,m_nTimerID);
 }
 
 
@@ -196,13 +168,3 @@ int SetHook(OnMsg msg,OnNotify notify)
 	return 0;
 }
 
-
-void CCommSocket::OnConnect(int nErrorCode) 
-{
-	// TODO: Add your specialized code here and/or call the base class
-    if (gpCallBackNotify)
-    {
-        gpCallBackNotify(m_node, m_dir | COMM_CONNECTED);
-    }
-	CSocket::OnConnect(nErrorCode);
-}

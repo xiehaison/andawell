@@ -9,18 +9,29 @@
 #define E_ERROR_CLOSE   -3
 
 
-struct T_Msg{
-    char *msg;
-    int len;
-};
+//typedef struct {
+//    BYTE *msg;
+//    DWORD len;
+//    void T_Msg()
+//    {
+//        len = 0;
+//    }
+//}T_Msg;
 
 
-struct T_MsgNotify{
-    char msg[255];
-    int node;
-    int dir;
-    int notify;
-};
+typedef struct {
+    DWORD node;
+    DWORD dir;
+    DWORD notify;
+    BYTE msg[256];
+    void T_MsgNotify()
+    {
+        dir = 0;
+        node = 0;
+        notify = 0;
+        memset(msg,0,256);
+    }
+}T_MsgNotify;
 
 
 
@@ -31,8 +42,7 @@ typedef void (* OnNotify)(char *msg,int code);
 DWORD StartClient(const char *rip,int rport,int note);
 int SetHook(OnMsg msg,OnNotify notify);
 
-int SendPacket(const char *pack,short int len);
-int SendPacket1(const char *pack, short int len); 
+int SendPacket(const char *pack,WORD len);
 
 
 int CloseAll();

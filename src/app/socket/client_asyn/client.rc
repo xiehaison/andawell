@@ -1,0 +1,322 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\client.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\client.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CLIENT_DIALOG DIALOGEX 0, 0, 551, 420
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "通讯客户端"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_Output,7,323,505,90,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
+    LTEXT           "ServerIP",IDC_STATIC,7,9,33,8
+    EDITTEXT        IDC_RIP,45,7,75,14,ES_AUTOHSCROLL
+    LTEXT           "ServerPort",IDC_STATIC,129,9,41,8
+    EDITTEXT        IDC_RPORT,175,7,75,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "连接",IDC_CONNECT,365,7,47,14
+    EDITTEXT        IDC_NODE,283,7,75,14,ES_AUTOHSCROLL
+    LTEXT           "Node",IDC_STATIC,261,9,17,8
+    PUSHBUTTON      "断开",IDC_BREAK,419,7,24,14,NOT WS_VISIBLE
+    CONTROL         "",IDC_TAB1,"SysTabControl32",0x0,7,23,537,295
+    PUSHBUTTON      "清除",IDC_Clear,520,331,24,14
+END
+
+IDD_APP_TEST DIALOGEX 0, 0, 367, 195
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
+FONT 8, "Microsoft Sans Serif", 400, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_EDIT1,235,7,40,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "发送",IDC_BUTTON1,288,7,50,14
+    COMBOBOX        IDC_COMBO1,79,7,100,103,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "目标地址:",IDC_STATIC,187,9,35,8
+    LTEXT           "消息类型:",IDC_STATIC,36,9,35,8
+END
+
+IDD_DB_Test DIALOGEX 0, 0, 347, 265
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTERMOUSE | WS_CHILD | WS_VISIBLE | WS_SYSMENU
+EXSTYLE WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "SendGetField",IDC_SendGetField,75,34,50,13
+    PUSHBUTTON      "SendPrepare",IDC_SendPrepare,20,34,50,13
+    PUSHBUTTON      "SendClose",IDC_SendClose,240,34,50,13
+    PUSHBUTTON      "SendMoveBy",IDC_SendMoveBy,130,34,50,13
+    PUSHBUTTON      "SendExec",IDC_SendExec,185,34,50,13
+    EDITTEXT        IDC_SQL_STR,19,18,198,13,ES_AUTOHSCROLL
+END
+
+IDD_CTRL_TEST DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Button1",IDC_BUTTON1,175,42,50,14
+    EDITTEXT        IDC_EDIT1,75,42,40,14,ES_AUTOHSCROLL
+END
+
+IDD_MON_TEST DIALOGEX 0, 0, 537, 315
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "启动",IDC_Start,97,7,50,14
+    EDITTEXT        IDC_DstNode,53,7,40,14,ES_AUTOHSCROLL
+    LTEXT           "单检设备:",IDC_STATIC,9,10,36,8
+    CONTROL         "",IDC_MFCVSLISTBOX2,"MfcVSListBox",WS_TABSTOP,7,23,125,285
+    CONTROL         "ChartCtrl",IDC_ChartCtrl,"ChartCtrl",WS_CLIPCHILDREN | WS_TABSTOP,138,26,392,179
+    PUSHBUTTON      "测试chart",IDC_TestChart,155,212,50,14
+    PUSHBUTTON      "测试chart",IDC_TestChart2,213,212,50,14
+    PUSHBUTTON      "测试chart",IDC_TestChart3,271,212,50,14
+    PUSHBUTTON      "测试chart",IDC_TestChart4,329,212,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "FileDescription", "client Microsoft 基础类应用程序"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "client"
+            VALUE "LegalCopyright", "版权所有 (C) 2008"
+            VALUE "OriginalFilename", "client.EXE"
+            VALUE "ProductName", "client 应用程序"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_CLIENT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 544
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 413
+    END
+
+    IDD_APP_TEST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 360
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 188
+    END
+
+    IDD_DB_Test, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 340
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 258
+    END
+
+    IDD_CTRL_TEST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+
+    IDD_MON_TEST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 530
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 308
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_APP_TEST DLGINIT
+BEGIN
+    IDC_COMBO1, 0x403, 13, 0
+0x2020, 0x2020, 0x4149, 0x4c5f, 0x676f, 0x6e69, "\000" 
+    IDC_COMBO1, 0x403, 18, 0
+0x2020, 0x4920, 0x5f41, 0x6f4c, 0x6967, 0x526e, 0x7365, 0x6c75, 0x0074, 
+
+    IDC_COMBO1, 0x403, 21, 0
+0x2020, 0x2020, 0x4149, 0x525f, 0x7165, 0x6553, 0x7672, 0x7265, 0x6e49, 
+0x6f66, "\000" 
+    IDC_COMBO1, 0x403, 27, 0
+0x2020, 0x2020, 0x4149, 0x525f, 0x7165, 0x6553, 0x7672, 0x7265, 0x6e49, 
+0x6f66, 0x6552, 0x7573, 0x746c, "\000" 
+    IDC_COMBO1, 0x403, 26, 0
+0x2020, 0x2020, 0x4149, 0x525f, 0x7165, 0x6554, 0x7473, 0x614d, 0x6863, 
+0x6e69, 0x4965, 0x666e, 0x006f, 
+    IDC_COMBO1, 0x403, 32, 0
+0x2020, 0x2020, 0x4149, 0x525f, 0x7165, 0x6554, 0x7473, 0x614d, 0x6863, 
+0x6e69, 0x4965, 0x666e, 0x526f, 0x7365, 0x6c75, 0x0074, 
+    IDC_COMBO1, 0x403, 18, 0
+0x2020, 0x2020, 0x4149, 0x525f, 0x7165, 0x6f4d, 0x696e, 0x6f74, 0x0072, 
+
+    IDC_COMBO1, 0x403, 24, 0
+0x2020, 0x2020, 0x4149, 0x525f, 0x7165, 0x6f4d, 0x696e, 0x6f74, 0x5272, 
+0x7365, 0x6c75, 0x0074, 
+    0
+END
+
+IDD_MON_TEST DLGINIT
+BEGIN
+    IDC_MFCVSLISTBOX2, 0x37c, 277, 0
+0x4d3c, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x7242, 0x776f, 
+0x6573, 0x7542, 0x7474, 0x6e6f, 0x543e, 0x5552, 0x3c45, 0x4d2f, 0x4346, 
+0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x7242, 0x776f, 0x6573, 0x7542, 
+0x7474, 0x6e6f, 0x3c3e, 0x464d, 0x5643, 0x4c53, 0x7369, 0x6274, 0x786f, 
+0x4e5f, 0x7765, 0x7542, 0x7474, 0x6e6f, 0x543e, 0x5552, 0x3c45, 0x4d2f, 
+0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x654e, 0x4277, 0x7475, 
+0x6f74, 0x3e6e, 0x4d3c, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 
+0x6552, 0x6f6d, 0x6576, 0x7542, 0x7474, 0x6e6f, 0x543e, 0x5552, 0x3c45, 
+0x4d2f, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x6552, 0x6f6d, 
+0x6576, 0x7542, 0x7474, 0x6e6f, 0x3c3e, 0x464d, 0x5643, 0x4c53, 0x7369, 
+0x6274, 0x786f, 0x555f, 0x4270, 0x7475, 0x6f74, 0x3e6e, 0x5254, 0x4555, 
+0x2f3c, 0x464d, 0x5643, 0x4c53, 0x7369, 0x6274, 0x786f, 0x555f, 0x4270, 
+0x7475, 0x6f74, 0x3e6e, 0x4d3c, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 
+0x5f78, 0x6f44, 0x6e77, 0x7542, 0x7474, 0x6e6f, 0x543e, 0x5552, 0x3c45, 
+0x4d2f, 0x4346, 0x5356, 0x694c, 0x7473, 0x6f62, 0x5f78, 0x6f44, 0x6e77, 
+0x7542, 0x7474, 0x6e6f, "\076" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDP_SOCKETS_INIT_FAILED "Windows 通信端口初始化失败。"
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\client.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

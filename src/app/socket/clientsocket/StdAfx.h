@@ -1,4 +1,4 @@
-// stdafx.h : include file for standard system include files,
+﻿// stdafx.h : include file for standard system include files,
 //      or project specific include files that are used frequently,
 //      but are changed infrequently
 
@@ -29,16 +29,9 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 
-#include "../..\\include\\commpack.h"
-#include "../..\\include\\basedef.h"
-#include "../..\\include\\ctidef.h"
+void F_Notify(char *msg, int node, int notify);
 
-void F_Notify(char *msg, int node, int dir, int notify);
-
-
-
-
-void Output(LPCTSTR DbgMessage,...);
+void OutputLog(LPCTSTR DbgMessage,...);
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

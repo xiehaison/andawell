@@ -14,49 +14,69 @@
 
 class CCltSock : public CSocket
 {
-// Attributes
+	// Attributes
 public:
-    int m_dir;
+	int m_dir;
 
-// Operations
+	// Operations
 public:
 	CCltSock();
 	virtual ~CCltSock();
 
-// Overrides
+	// Overrides
 public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CCltSock)
-	public:
+public:
 	virtual void OnClose(int nErrorCode);
 	virtual void OnConnect(int nErrorCode);
-	virtual BOOL OnMessagePending();
-	virtual void OnOutOfBandData(int nErrorCode);
 	virtual void OnReceive(int nErrorCode);
+	virtual void OnOutOfBandData(int nErrorCode);
+	//virtual int Recv(void );
+	int Recv(void* lpBuf, int nBufLen, int nFlags = 0)
+	{
+		if (!SetTimeOut())
+			return -1;
+		int len = Receive(lpBuf, nBufLen, nFlags);
+		KillTimeOut();
+		return len;
+	}
+
+	int send(const void* lpBuf, int nBufLen, int nFlags = 0)
+	{
+        if (m_hSocket == INVALID_SOCKET)
+            return -1;
+		if (!SetTimeOut())
+			return -1;
+		int len = Send(lpBuf, nBufLen, nFlags);
+		KillTimeOut();
+		return len;
+	}
+
 	//}}AFX_VIRTUAL
 
 	// Generated message map functions
 	//{{AFX_MSG(CCltSock)
 		// NOTE - the ClassWizard will add and remove member functions here.
 	//}}AFX_MSG
-	public:
-		BOOL SetTimeOut(UINT uTimeOut=1000)
+	private:
+		BOOL SetTimeOut(UINT uTimeOut = 1000)
 		{
 			m_nTimerID = SetTimer(NULL,0,uTimeOut,NULL);
 			return m_nTimerID;
 		}
 		
-		
 		BOOL KillTimeOut()
 		{
 			return KillTimer(NULL,m_nTimerID);
 		}
+	protected:
+		virtual BOOL OnMessagePending();
 	private:
 		int m_nTimerID;
 
-
 // Implementation
-protected:
+	protected:
 };
 
 
@@ -73,7 +93,7 @@ public:
     CMyFifo()
     {
         m_pHead = 0;
-        m_pTail = 0;
+        m_pTail = 0; 
         memset(queue, 0, sizeof(T)*MAX_QUEUE);
     }
 
@@ -115,39 +135,26 @@ public:
 class CClientComm:public  CObject
 {
 public:
-    CCltSock *m_pSendSock;
-    CCltSock *m_pRecvSock;
+    CCltSock m_Sock;
     int m_Node;
     CClientComm()
     {
-        m_pSendSock = NULL;
-        m_pRecvSock = NULL;
+        m_Sock.m_hSocket = INVALID_SOCKET;
         m_Node = -1;
     }
 
     void Init()
     {
-        m_pSendSock = NULL;
-        m_pRecvSock = NULL;
+        m_Sock.m_hSocket = INVALID_SOCKET;
         m_Node = -1;
     }
     virtual ~CClientComm(){};
     void Close()
     {
-        if (m_pSendSock)
-        {
-            if (m_pSendSock->m_hSocket != -1){
-                m_pSendSock->ShutDown();
-            }
+        if (m_Sock.m_hSocket != INVALID_SOCKET){
+            m_Sock.ShutDown(2);
+            //m_Sock.Close();
         }
-
-        if (m_pRecvSock)
-        {
-            if (m_pRecvSock->m_hSocket != -1){
-                m_pRecvSock->ShutDown();
-            }
-        }
-        return;
     }
 protected:;
 private:;

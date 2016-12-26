@@ -1,0 +1,12 @@
+adsrv 是安大威尔的服务器主程序
+chartctrl是绘图的控件
+client 是主控的测试桩主程序
+client_asyn是测试异步通信的测试桩主程序
+client_asyn_emu是模拟单检设备的测试桩主程序
+clientsocket是主控端使用的通信的动态库,使用同步的回调函数供主程序引用
+clientsocket_asyn是单检设备使用的异步通信库,使用队列
+comm是使用原始socket的程序
+dbagent是数据库代理的测试桩主程序
+include是所有通信程序使用的通信函数和数据头文件
+srvsocket是服务器使用的通信库
+testlinuxsocket是linux下可以使用的通信库

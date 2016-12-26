@@ -34,19 +34,25 @@ public:
 	CString	m_rport;
 	CString	m_sendbuf;
 	CString	m_node;
-	CString	m_cin_caller;
-	CString	m_cin_called;
-	CString	m_cin_channel;
-	CString	m_msgtype;
-	CString	m_msgchan;
     int bconn;
     CDBTest     m_dbtest;
     CAPPTest    m_apptest;
     CMonTest    m_montest;
     CCtrlTest   m_ctrltest;
+
+	struct S_REQ_MONITOR{
+		int proj_timer;  //项目编号+1000等于时间中断的号码
+		BYTE data_type;  //数据的格式类型
+		DWORD rnode;	 //远端节点号码
+		DWORD SerialNo;	 //包的序列号
+		S_REQ_MONITOR()
+		{
+			memset(this, 0, sizeof(S_REQ_MONITOR));
+		}
+	}	req_monitor;
 	//}}AFX_DATA
 
-	void Output(LPCTSTR line, ...)
+	void OutputLog(LPCTSTR line, ...)
 	{
 		char buf[1024];
 		memset(buf,0,1024);
@@ -92,10 +98,6 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnConnect();
 	afx_msg void OnClose();
-	afx_msg void OnSendpack();
-	afx_msg void OnCallout();
-	afx_msg void OnHungUP();
-	afx_msg void OnSendMSG();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:

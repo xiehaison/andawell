@@ -22,7 +22,7 @@ CAdoDB::CAdoDB()
 	WriteLog(GetCurTime(szBuf));
 	CoInitialize(NULL);
 	HRESULT hr = _ctp.CreateInstance(__uuidof(Connection));
-	m_ch.resize(GetPrivateProfileInt("chan","cnt",0,"./DBAgent.ini"));
+    m_ch.resize(GetPrivateProfileInt("Node", "total_cnt", 0, "./DBAgent.ini"));
 }
 
 CAdoDB::~CAdoDB()

@@ -28,7 +28,14 @@ void CCtrlTest::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CCtrlTest, CDialogEx)
+    ON_BN_CLICKED(IDC_Login, &CCtrlTest::OnBnClickedLogin)
 END_MESSAGE_MAP()
 
 
 // CCtrlTest 消息处理程序
+
+//主控端登录
+void CCtrlTest::OnBnClickedLogin()
+{
+    // TODO:  在此添加控件通知处理程序代码
+}

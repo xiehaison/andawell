@@ -16,7 +16,7 @@
 
 
 
-void Output(LPCTSTR DbgMessage,...)
+void OutputLog(LPCTSTR DbgMessage,...)
 {
 	char buf[1024];
 	memset(buf,0,1024);
@@ -26,21 +26,17 @@ void Output(LPCTSTR DbgMessage,...)
 	_vsnprintf (buf, sizeof(buf), DbgMessage, args);
 	va_end(args);
 	
-	strcat(buf, "\n");
-	char str[512];
-	memset(str, 0, sizeof(str));
-	strcat(str, buf);
-	
-	struct timeb tstruct;
-	ftime( &tstruct );
-	
-	char abuf[1024];
-	memset(abuf,0,1024);
-	sprintf(abuf,"%s(%3u)=>%s",ctime(&tstruct.time),tstruct.millitm,buf);
-	ofstream out("clientlog.tmp");
-	out << abuf << endl;
-	out.flush();
-	out.close();
+    CTime now = CTime::GetCurrentTime();
+    CString ss,s = now.Format("%c" );
+    ss.Format("%s(%3u)=>%s\n",s, GetTickCount() % 1000, buf);
 
-	OutputDebugString(abuf);
+ //   char abuf[1024+512];
+	//memset(abuf,0,1024+512);
+	//sprintf(abuf,"%s(%3u)=>%s\n",strtime,GetTickCount()%1000,buf);
+	//ofstream out("clientlog.tmp");
+	//out << abuf << endl;
+	//out.flush();
+	//out.close();
+
+	OutputDebugString(ss);
 }

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="11.6" version="11.6" Modules="simple" RootPath="." Language="en" Id="{C5D0A2AA-99B2-48AC-B3D0-4C3C83BB97CB}">
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPNOMODIFY" Value="1"/>
+    <ROW Property="LIMITUI" Value="1"/>
+    <ROW Property="Manufacturer" Value="安达维尔"/>
+    <ROW Property="ProductCode" Value="1033:{6F5C9C60-2A33-4603-8BAC-5DA8AA66899D} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="测控程序"/>
+    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{DF43373D-1439-452C-BDE1-B550D6B6CDE6}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AdSrv.exe" ComponentId="{1B8B7E7E-4F68-48B1-B2FE-1932AC1F0DBE}" Directory_="APPDIR" Attributes="0" KeyPath="AdSrv.exe"/>
+    <ROW Component="AdSrv.ilk" ComponentId="{B1933962-B5F8-487F-A406-326F8690B4EC}" Directory_="APPDIR" Attributes="0" KeyPath="clientlog.tmp" Type="0"/>
+    <ROW Component="DBAgent.exe" ComponentId="{08BBF4F6-5E45-47D0-8305-EB2D0524CD1A}" Directory_="APPDIR" Attributes="0" KeyPath="DBAgent.exe"/>
+    <ROW Component="Dbgview.exe" ComponentId="{07DE85E1-3AD0-4204-A02B-0FCDFA53E3E2}" Directory_="APPDIR" Attributes="0" KeyPath="Dbgview.exe"/>
+    <ROW Component="ProductInformation" ComponentId="{E7706BD8-7E68-47E9-85F3-9A50ECC4859C}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{7E28B8DB-06B2-4DE0-81EB-F61CFD9610BB}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="SrvSocket.dll" ComponentId="{D125B902-9A5E-4AF1-97F9-0A64EB4073C2}" Directory_="APPDIR" Attributes="0" KeyPath="SrvSocket.dll"/>
+    <ROW Component="client.exe" ComponentId="{4E0B6BE9-689C-407B-9D73-DE9DDF8FC0A8}" Directory_="APPDIR" Attributes="0" KeyPath="client.exe"/>
+    <ROW Component="client_asyn.exe" ComponentId="{420E9756-D3C0-4FE3-8A61-667308FE6A24}" Directory_="APPDIR" Attributes="0" KeyPath="client_asyn.exe"/>
+    <ROW Component="client_asyn_emu.exe" ComponentId="{201C8961-1D1A-4F67-9BB2-5C28307BCED9}" Directory_="APPDIR" Attributes="0" KeyPath="client_asyn_emu.exe"/>
+    <ROW Component="clientsocket.dll" ComponentId="{C5A1C3E9-2554-4332-88CA-25D43945D6EC}" Directory_="APPDIR" Attributes="0" KeyPath="clientsocket.dll"/>
+    <ROW Component="clientsocket_asyn.dll" ComponentId="{E58DF737-1DE5-4A4B-97B4-410B34D0C1BB}" Directory_="APPDIR" Attributes="0" KeyPath="clientsocket_asyn.dll"/>
+    <ROW Component="dbgview.chm" ComponentId="{A5E78E6B-6AE6-46A1-BDB3-AB7C5E93E778}" Directory_="APPDIR" Attributes="0" KeyPath="dbgview.chm" Type="1"/>
+    <ROW Component="libglog.dll" ComponentId="{47D3B2F3-349E-41C1-B234-F0CC8BAE3544}" Directory_="APPDIR" Attributes="0" KeyPath="libglog.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AdSrv.exe AdSrv.ilk DBAgent.exe Dbgview.exe ProductInformation SHORTCUTDIR SrvSocket.dll client.exe client_asyn.exe client_asyn_emu.exe clientsocket.dll clientsocket_asyn.dll dbgview.chm libglog.dll"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="AdSrv.exe" Component_="AdSrv.exe" FileName="AdSrv.exe" Attributes="0" SourcePath="..\bin\AdSrv.exe" SelfReg="false" NextFile="client.exe" DigSign="true"/>
+    <ROW File="DBAgent.exe" Component_="DBAgent.exe" FileName="DBAgent.exe" Attributes="0" SourcePath="..\bin\DBAgent.exe" SelfReg="false" NextFile="DBAgent.ini" DigSign="true"/>
+    <ROW File="DBAgent.ini" Component_="AdSrv.ilk" FileName="DBAgent.ini" Attributes="0" SourcePath="..\bin\DBAgent.ini" SelfReg="false" NextFile="dbgview.chm"/>
+    <ROW File="Dbgview.exe" Component_="Dbgview.exe" FileName="Dbgview.exe" Attributes="0" SourcePath="..\bin\Dbgview.exe" SelfReg="false" NextFile="libglog.dll" DigSign="true"/>
+    <ROW File="README.md" Component_="AdSrv.ilk" FileName="README.md" Attributes="0" SourcePath="..\bin\README.md" SelfReg="false" NextFile="settings_client.tmp"/>
+    <ROW File="SrvComm.h" Component_="AdSrv.ilk" FileName="SrvComm.h" Attributes="0" SourcePath="..\bin\SrvComm.h" SelfReg="false" NextFile="SrvSocket.dll"/>
+    <ROW File="SrvSocket.Tmp" Component_="AdSrv.ilk" FileName="SRVSOC~1.TMP|SrvSocket.Tmp" Attributes="0" SourcePath="..\bin\SrvSocket.Tmp" SelfReg="false"/>
+    <ROW File="SrvSocket.dll" Component_="SrvSocket.dll" FileName="SRVSOC~1.DLL|SrvSocket.dll" Attributes="0" SourcePath="..\bin\SrvSocket.dll" SelfReg="false" NextFile="SrvSocket.lib"/>
+    <ROW File="SrvSocket.lib" Component_="AdSrv.ilk" FileName="SRVSOC~1.LIB|SrvSocket.lib" Attributes="0" SourcePath="..\bin\SrvSocket.lib" SelfReg="false" NextFile="SrvSocket.Tmp"/>
+    <ROW File="client.exe" Component_="client.exe" FileName="client.exe" Attributes="0" SourcePath="..\bin\client.exe" SelfReg="false" NextFile="clientlog.tmp" DigSign="true"/>
+    <ROW File="client_asyn.exe" Component_="client_asyn.exe" FileName="CLIENT~1.EXE|client_asyn.exe" Attributes="0" SourcePath="..\bin\client_asyn.exe" SelfReg="false" NextFile="client_asyn_emu.exe" DigSign="true"/>
+    <ROW File="client_asyn_emu.exe" Component_="client_asyn_emu.exe" FileName="CLIENT~2.EXE|client_asyn_emu.exe" Attributes="0" SourcePath="..\bin\client_asyn_emu.exe" SelfReg="false" NextFile="DBAgent.exe" DigSign="true"/>
+    <ROW File="clientlog.tmp" Component_="AdSrv.ilk" FileName="CLIENT~1.TMP|clientlog.tmp" Attributes="0" SourcePath="..\bin\clientlog.tmp" SelfReg="false" NextFile="clientsock.h"/>
+    <ROW File="clientsock.h" Component_="AdSrv.ilk" FileName="CLIENT~1.H|clientsock.h" Attributes="0" SourcePath="..\bin\clientsock.h" SelfReg="false" NextFile="clientsocket.dll"/>
+    <ROW File="clientsocket.dll" Component_="clientsocket.dll" FileName="CLIENT~1.DLL|clientsocket.dll" Attributes="0" SourcePath="..\bin\clientsocket.dll" SelfReg="false" NextFile="clientsocket_asyn.dll"/>
+    <ROW File="clientsocket_asyn.dll" Component_="clientsocket_asyn.dll" FileName="CLIENT~2.DLL|clientsocket_asyn.dll" Attributes="0" SourcePath="..\bin\clientsocket_asyn.dll" SelfReg="false" NextFile="clientsocket_asyn.lib"/>
+    <ROW File="clientsocket_asyn.lib" Component_="AdSrv.ilk" FileName="CLIENT~1.LIB|clientsocket_asyn.lib" Attributes="0" SourcePath="..\bin\clientsocket_asyn.lib" SelfReg="false" NextFile="client_asyn.exe"/>
+    <ROW File="dbgview.chm" Component_="dbgview.chm" FileName="dbgview.chm" Attributes="0" SourcePath="..\bin\dbgview.chm" SelfReg="false" NextFile="Dbgview.exe"/>
+    <ROW File="libglog.dll" Component_="libglog.dll" FileName="libglog.dll" Attributes="0" SourcePath="..\bin\libglog.dll" SelfReg="false" NextFile="README.md"/>
+    <ROW File="settings_client.tmp" Component_="AdSrv.ilk" FileName="SETTIN~1.TMP|settings_client.tmp" Attributes="0" SourcePath="..\bin\settings_client.tmp" SelfReg="false" NextFile="settings_client_dbtest.tmp"/>
+    <ROW File="settings_client_dbtest.tmp" Component_="AdSrv.ilk" FileName="SETTIN~2.TMP|settings_client_dbtest.tmp" Attributes="0" SourcePath="..\bin\settings_client_dbtest.tmp" SelfReg="false" NextFile="SrvComm.h"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="setup" PackageFileName="setup" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+    <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.CacheComponent">
+    <ATTRIBUTE name="CacheIndex" value="安达维尔测控--测试使用的安装包.txt"/>
+    <ATTRIBUTE name="Folder" value="temp"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[AI_UserProgramFiles]\andawell\test"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_DpiContentScale" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNT40Display]" DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="AdSrv.exe" Directory_="SHORTCUTDIR" Name="ADSRV-~1.EXE|AdSrv--服务器主程序.exe" Component_="AdSrv.exe" Target="[#AdSrv.exe]" Description="AdSrv.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="AdSrv.exe_1" Directory_="DesktopFolder" Name="安达维尔测控~1.EXE|安达维尔测控服务器主程序.exe" Component_="AdSrv.exe" Target="[#AdSrv.exe]" Description="AdSrv.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="DBAgent.exe" Directory_="SHORTCUTDIR" Name="DBAGEN~2.EXE|DBAgent--数据库代理测试桩.exe" Component_="DBAgent.exe" Target="[#DBAgent.exe]" Description="DBAgent.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="DBAgent.exe_1" Directory_="DesktopFolder" Name="数据库代理测试桩.exe" Component_="DBAgent.exe" Target="[#DBAgent.exe]" Description="DBAgent.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="Dbgview.exe" Directory_="SHORTCUTDIR" Name="DBGVIE~1.EXE|Dbgview--调试工具.exe" Component_="Dbgview.exe" Target="[#Dbgview.exe]" Description="Dbgview.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="Dbgview.exe_1" Directory_="DesktopFolder" Name="调试工具DB~1.EXE|调试工具Dbgview.exe" Component_="Dbgview.exe" Target="[#Dbgview.exe]" Description="Dbgview.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="client.exe" Directory_="SHORTCUTDIR" Name="CLIENT~1.EXE|client--主控模拟.exe" Component_="client.exe" Target="[#client.exe]" Description="client.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="client.exe_1" Directory_="DesktopFolder" Name="安达维尔主控~1.EXE|安达维尔主控主程序.exe" Component_="client.exe" Target="[#client.exe]" Description="client.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="client_asyn_emu.exe" Directory_="SHORTCUTDIR" Name="CLIENT~2.EXE|client_asyn_emu--单检模拟程序.exe" Component_="client_asyn_emu.exe" Target="[#client_asyn_emu.exe]" Description="client_asyn_emu.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="client_asyn_emu.exe_1" Directory_="DesktopFolder" Name="安达维尔模拟~1.EXE|安达维尔模拟单检主程序.exe" Component_="client_asyn_emu.exe" Target="[#client_asyn_emu.exe]" Description="client_asyn_emu.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+</DOCUMENT>

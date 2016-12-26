@@ -1,0 +1,20 @@
+// clientsocket.idl : IDL source for clientsocket.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (clientsocket.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(28AE2DF4-BB0F-4079-8603-86DDAECEC695),
+	version(1.0),
+	helpstring("clientsocket 1.0 Type Library")
+]
+library CLIENTSOCKETLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+};
