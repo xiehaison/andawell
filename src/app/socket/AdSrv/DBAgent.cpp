@@ -42,7 +42,14 @@ CString gProgDir;
 
 BOOL CDBGateApp::InitInstance()
 {
-	if (!AfxSocketInit())
+    CreateMutex(NULL, true, m_pszAppName);
+    if (GetLastError() == ERROR_ALREADY_EXISTS)
+    {
+        AfxMessageBox(_T("服务器程序不可以重复启动"), MB_OK | MB_APPLMODAL | MB_ICONSTOP);
+        return(false);
+    }
+    
+    if (!AfxSocketInit())
 	{
 		AfxMessageBox(IDP_SOCKETS_INIT_FAILED);
 		return FALSE;
