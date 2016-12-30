@@ -40,18 +40,8 @@ public:
     CMonTest    m_montest;
     CCtrlTest   m_ctrltest;
 
-	struct S_REQ_MONITOR{
-		int proj_timer;  //项目编号+1000等于时间中断的号码
-		BYTE data_type;  //数据的格式类型
-		DWORD rnode;	 //远端节点号码
-		DWORD SerialNo;	 //包的序列号
-		S_REQ_MONITOR()
-		{
-			memset(this, 0, sizeof(S_REQ_MONITOR));
-		}
-	}	req_monitor;
 	//}}AFX_DATA
-
+    S_REQ_MONITOR req_monitor;
 	void OutputLog(LPCTSTR line, ...)
 	{
 		char buf[1024];

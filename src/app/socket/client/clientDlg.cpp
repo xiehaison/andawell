@@ -269,6 +269,7 @@ LRESULT CClientDlg::OnSockRecv(WPARAM wparam, LPARAM lparam)
             OutputLog("收到测试字符串[%s]", pak->TestString.str);
         }
         break;
+
     case ID_ReqMonitorDataResult:
         {
 			if (req_monitor.proj_timer == 0){
@@ -282,24 +283,41 @@ LRESULT CClientDlg::OnSockRecv(WPARAM wparam, LPARAM lparam)
 			}
         }
         break;
+
 	case IA_ReqMonitorResult:
 		{
-			tag_ID_Packet * recvpak = (tag_ID_Packet *)wparam;
-			if (recvpak->ReqMonitorResult.result)
-			{
-				OutputLog("请求监控已被接受!项目编号:%d,数据类型:%d", recvpak->ReqMonitorResult.projno, recvpak->ReqMonitorResult.data_type);
-				g_Dlg->req_monitor.proj_timer = recvpak->ReqMonitorResult.projno;   //项目编号被当做时间中断使用
-				g_Dlg->req_monitor.data_type = m_montest.m_reqtype;					//数据格式类型
-				g_Dlg->req_monitor.rnode = recvpak->SrcCode;						//被控端节点编号
-				g_Dlg->req_monitor.SerialNo = 0;									//数据个数计数开始
-				SetTimer(req_monitor.proj_timer + 1000, 100, NULL);					//设置时间中断,发送请求数据
-				m_montest.StartMonitor();
-				m_montest.m_bstart = true;
-			}
-			else{
-				OutputLog("请求监控被拒绝!");
-			}
-		}
+			tag_IA_Packet * recvpak = (tag_IA_Packet *)wparam;
+            if (recvpak->ReqMonitorResult.type == E_STOP_MONITOR)
+            {
+                OutputLog("关闭监控,项目编号:%d,该项目的当前状态:%d,%s",
+                    recvpak->ReqMonitorResult.project_sn,
+                    recvpak->ReqMonitorResult.project_current_status, 
+                    recvpak->ReqMonitorResult.result?"ok":"failed");
+                m_montest.m_bstart = false;
+                m_montest.StopMonitor();
+            }
+            else if (recvpak->ReqMonitorResult.type == E_START_MONITOR){
+                if (recvpak->ReqMonitorResult.result)
+                {
+                    OutputLog("请求监控已被接受!项目编号:%d,数据类型:%d,总采集数:%d,速度:%d,该项目的当前状态:%d", 
+                        recvpak->ReqMonitorResult.project_sn, 
+                        recvpak->ReqMonitorResult.datatype?"正玄波":"随机数", 
+                        recvpak->ReqMonitorResult.totalcount,
+                        recvpak->ReqMonitorResult.speed,
+                        recvpak->ReqMonitorResult.project_current_status);
+                    g_Dlg->req_monitor.proj_timer = recvpak->ReqMonitorResult.project_sn;   //项目编号+1000-->被当做时间中断使用
+                    g_Dlg->req_monitor.data_type = m_montest.m_reqtype;					//数据格式类型
+                    g_Dlg->req_monitor.rnode = recvpak->SrcCode;						//被控端节点编号
+                    g_Dlg->req_monitor.SerialNo = 0;									//数据个数计数开始
+                    //SetTimer(req_monitor.proj_timer + 1000, 100, NULL);					//设置时间中断,发送请求数据
+                    m_montest.StartMonitor();
+                    m_montest.m_bstart = true;
+                }
+                else{
+                    OutputLog("请求监控被拒绝!");
+                }
+            }
+        }
 		break;
     default:
         break;

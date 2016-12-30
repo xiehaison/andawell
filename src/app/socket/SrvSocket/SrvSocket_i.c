@@ -6,7 +6,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Dec 26 16:17:08 2016
+/* at Tue Dec 27 16:19:15 2016
  */
 /* Compiler settings for SrvSocket.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 

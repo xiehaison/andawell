@@ -76,6 +76,8 @@
 #define IDC_                            1065
 #define IDC_SendSampling                1065
 #define IDC_SentCount2                  1066
+#define IDC_SentCount3                  1067
+#define IDC_Status                      1068
 
 // Next default values for new objects
 // 
@@ -83,7 +85,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        139
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1065
+#define _APS_NEXT_CONTROL_VALUE         1069
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

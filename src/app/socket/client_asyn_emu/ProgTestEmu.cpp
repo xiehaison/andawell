@@ -44,7 +44,17 @@ END_MESSAGE_MAP()
 
 
 // CProgTestEmu 消息处理程序
-
+void PlanStart(int sn)
+{
+    tag_ID_Packet pak;
+    pak.PackType = ID_StartTestPlan;
+    pak.StartTestPlan.sn = sn;
+    pak.StartTestPlan.start_time = CTime::GetCurrentTime().GetTime();
+    pak.StartTestPlan.start_user = 0;
+    pak.StartTestPlan.node = atoi(g_Dlg->m_node);
+    pak.SrcCode = atoi(g_Dlg->m_node);
+    TcpSockSend((void *)&pak, sizeof(pak));
+}
 
 void CProgTestEmu::OnBnClickedStart()
 {
@@ -67,8 +77,6 @@ void PlanPause(int sn)
 {
     tag_ID_Packet pak;
     pak.PackType = ID_PauseTestPlan;
-    //strncpy(pak.PauseTestPlan.planname, m_plan_name, sizeof(pak.PauseTestPlan.planname));
-    //strncpy(pak.PauseTestPlan.projname, m_project_name, sizeof(pak.PauseTestPlan.projname));
     pak.PauseTestPlan.sn = sn;
     pak.PauseTestPlan.time = CTime::GetCurrentTime().GetTime();
     pak.PauseTestPlan.user = 0;
@@ -82,15 +90,6 @@ void CProgTestEmu::OnBnClickedPause()
 {
     // TODO:  在此添加控件通知处理程序代码
     UpdateData();
-    //tag_ID_Packet pak;
-    //pak.PackType = ID_PauseTestPlan;
-    //strncpy(pak.PauseTestPlan.planname, m_plan_name, sizeof(pak.PauseTestPlan.planname));
-    //strncpy(pak.PauseTestPlan.projname, m_project_name, sizeof(pak.PauseTestPlan.projname));
-    //pak.PauseTestPlan.sn = rand();
-    //pak.PauseTestPlan.time = CTime::GetCurrentTime().GetTime();
-    //pak.PauseTestPlan.user = 0;
-    //pak.PauseTestPlan.node = atoi(g_Dlg->m_node);
-    //TcpSockSend((void *)&pak, sizeof(pak));
     PlanPause(rand());
 }
 
@@ -98,9 +97,7 @@ void SuspendTestPlan(int sn)
 {
     tag_ID_Packet pak;
     pak.PackType = ID_SuspendTestPlan;
-    //strncpy(pak.SuspendTestPlan.planname, m_plan_name, sizeof(pak.SuspendTestPlan.planname));
-    //strncpy(pak.SuspendTestPlan.projname, m_project_name, sizeof(pak.SuspendTestPlan.projname));
-    pak.SuspendTestPlan.sn = rand();
+    pak.SuspendTestPlan.sn = sn;
     pak.SuspendTestPlan.time = CTime::GetCurrentTime().GetTime();
     pak.SuspendTestPlan.user = 0;
     pak.SuspendTestPlan.node = atoi(g_Dlg->m_node);
@@ -114,8 +111,6 @@ void CProgTestEmu::OnBnClickedSuspend()
     UpdateData();
     tag_ID_Packet pak;
     pak.PackType = ID_SuspendTestPlan;
-    strncpy(pak.SuspendTestPlan.planname, m_plan_name, sizeof(pak.SuspendTestPlan.planname));
-    strncpy(pak.SuspendTestPlan.projname, m_project_name, sizeof(pak.SuspendTestPlan.projname));
     pak.SuspendTestPlan.sn = rand();
     pak.SuspendTestPlan.time = CTime::GetCurrentTime().GetTime();
     pak.SuspendTestPlan.user = 0;
@@ -129,9 +124,7 @@ void ContinueTestPlan(int sn)
 {
     tag_ID_Packet pak;
     pak.PackType = ID_ContinueTestPlan;
-    //strncpy(pak.ContinueTestPlan.planname, m_plan_name, sizeof(pak.ContinueTestPlan.planname));
-    //strncpy(pak.ContinueTestPlan.projname, m_project_name, sizeof(pak.ContinueTestPlan.projname));
-    pak.ContinueTestPlan.sn = rand();
+    pak.ContinueTestPlan.sn = sn;
     pak.ContinueTestPlan.time = CTime::GetCurrentTime().GetTime();
     pak.ContinueTestPlan.user = 0;
     pak.ContinueTestPlan.node = atoi(g_Dlg->m_node);
@@ -146,8 +139,6 @@ void CProgTestEmu::OnBnClickedContinue()
     UpdateData();
     tag_ID_Packet pak;
     pak.PackType = ID_ContinueTestPlan;
-    strncpy(pak.ContinueTestPlan.planname, m_plan_name, sizeof(pak.ContinueTestPlan.planname));
-    strncpy(pak.ContinueTestPlan.projname, m_project_name, sizeof(pak.ContinueTestPlan.projname));
     pak.ContinueTestPlan.sn = rand();
     pak.ContinueTestPlan.time = CTime::GetCurrentTime().GetTime();
     pak.ContinueTestPlan.user = 0;
@@ -161,9 +152,7 @@ void StopTestPlan(int sn)
 {
     tag_ID_Packet pak;
     pak.PackType = ID_StopTestPlan;
-    //strncpy(pak.StopTestPlan.planname, m_plan_name, sizeof(pak.StopTestPlan.planname));
-    //strncpy(pak.StopTestPlan.projname, m_project_name, sizeof(pak.StopTestPlan.projname));
-    pak.StopTestPlan.sn = rand();
+    pak.StopTestPlan.sn = sn;
     pak.StopTestPlan.time = CTime::GetCurrentTime().GetTime();
     pak.StopTestPlan.user = 0;
     pak.StopTestPlan.node = atoi(g_Dlg->m_node);

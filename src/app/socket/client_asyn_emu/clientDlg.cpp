@@ -287,16 +287,35 @@ void CClientDlg::OnTimer(UINT_PTR nIDEvent)
 }
 
 
-int PackMsg_ReqMonitorResult(DWORD dst,DWORD src,bool result)
+int PackMsg_ReqMonitorResult(DWORD dst,DWORD src,int project_no, int datatype,int type, int totalcount,int speed,bool result)
 {
-    tag_ID_Packet pak;
-    pak.PackType = IA_ReqMonitorResult;
-    pak.DesCode = dst;
-    pak.SrcCode = src;
-    pak.ReqMonitorResult.result = result;
+    if (type == E_START_MONITOR ){
+        tag_IA_Packet pak;
+        pak.PackType = IA_ReqMonitorResult;
+        pak.DesCode = dst;
+        pak.SrcCode = src;
+        pak.ReqMonitorResult.result = result;
+        pak.ReqMonitorResult.project_sn = project_no;
+        pak.ReqMonitorResult.type = type;
+        pak.ReqMonitorResult.datatype = datatype;
 
+        TcpSockSend((void*)&pak, sizeof(pak));
 
-    TcpSockSend((void*)&pak, sizeof(pak));
+    }
+    else
+    {
+        tag_IA_Packet pak;
+        pak.PackType = IA_ReqMonitorResult;
+        pak.DesCode = dst;
+        pak.SrcCode = src;
+        pak.ReqMonitorResult.result = result;
+        pak.ReqMonitorResult.project_sn = project_no;
+        pak.ReqMonitorResult.type = type;
+        pak.ReqMonitorResult.datatype = datatype;
+
+        TcpSockSend((void*)&pak, sizeof(pak));
+
+    }
     return 0;
 }
 
@@ -310,12 +329,18 @@ int CClientDlg::OnSockRecv_Asyn(T_Msg *pmsg)
     switch (type)
     {
     case IA_ReqMonitor:
-        PackMsg_ReqMonitorResult(GetMsgSrc(pmsg->msg), GetMsgDst(pmsg->msg), m_montest.m_accept_monitor);
-
-        break;
-    case ID_ReqMonitor:
-        PackMsg_ReqMonitorResult(GetMsgSrc(pmsg->msg), GetMsgDst(pmsg->msg), m_montest.m_accept_monitor);
-        break;
+    {
+        tag_IA_Packet *pack = (tag_IA_Packet *)pmsg->msg;
+        if (pack->ReqMonitor.type == E_START_MONITOR){
+            PackMsg_ReqMonitorResult(GetMsgSrc(pmsg->msg), GetMsgDst(pmsg->msg), 0, 0, pack->ReqMonitor.type,0,0, m_montest.m_accept_monitor);
+            Output("ÇëÇó¼à¿Ø:%d==>%s", pack->ReqMonitor.type, m_montest.m_accept_monitor?"½ÓÊÜ":"¾Ü¾ø");
+        }
+        else{
+            PackMsg_ReqMonitorResult(GetMsgSrc(pmsg->msg), GetMsgDst(pmsg->msg), 0, 0, pack->ReqMonitor.type,0,0, 1);
+            Output("ÇëÇóÍ£Ö¹¼à¿Ø");
+        }
+    }
+    break;
     default:
         break;
     }

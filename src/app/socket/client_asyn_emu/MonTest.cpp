@@ -14,14 +14,16 @@ IMPLEMENT_DYNAMIC(CMonTest, CDialogEx)
 CMonTest::CMonTest(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CMonTest::IDD, pParent)
     , m_accept_monitor(FALSE)
-    , m_teststring(_T(""))
-    , m_node(0)
+    , m_teststring(_T("11111111111111111111"))
     , m_testspeed(50)
     , m_gained(_T("采集数据数:"))
     , m_databuf(_T("数据缓冲区:"))
     , m_SentCount(_T("发送数:"))
     , m_lostcount(_T("丢失数:"))
-    , m_rnode(0)
+    , m_rnode(1)
+    , m_projstatus(0)
+    , m_project_no(1)
+    , m_totalcount(1000)
 {
 
 }
@@ -36,7 +38,6 @@ void CMonTest::DoDataExchange(CDataExchange* pDX)
     DDX_Check(pDX, IDC_CHECK1, m_accept_monitor);
     DDX_Text(pDX, IDC_EDIT1, m_teststring);
     DDV_MaxChars(pDX, m_teststring, 100);
-    DDX_Text(pDX, IDC_EDIT2, m_node);
     DDX_Slider(pDX, IDC_SLIDER1, m_testspeed);
     DDV_MinMaxInt(pDX, m_testspeed, 0, 100);
     DDX_Text(pDX, IDC_Gained, m_gained);
@@ -44,6 +45,11 @@ void CMonTest::DoDataExchange(CDataExchange* pDX)
     DDX_Text(pDX, IDC_SentCount, m_SentCount);
     DDX_Text(pDX, IDC_LostCount, m_lostcount);
     DDX_Text(pDX, IDC_EDIT6, m_rnode);
+    DDX_Text(pDX, IDC_Status, m_projstatus);
+    DDX_Text(pDX, IDC_EDIT3, m_project_no);
+    DDV_MinMaxInt(pDX, m_project_no, 1, 10000);
+    DDX_Text(pDX, IDC_EDIT8, m_totalcount);
+    DDX_Control(pDX, IDC_PROGRESS1, m_speedctrl);
 }
 
 
@@ -71,7 +77,7 @@ void CMonTest::OnBnClickedButton1()
     int mynode = atoi(g_Dlg->m_node);
     pak.PackType = IA_TestString;
     sprintf((char *)&pak.TestString.str, m_teststring);
-    pak.DesCode = m_node;
+    pak.DesCode = m_rnode;
     pak.SrcCode = mynode;
     TcpSockSend((char*)&pak, sizeof(pak));
 }

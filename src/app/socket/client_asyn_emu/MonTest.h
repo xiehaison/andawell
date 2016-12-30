@@ -1,5 +1,6 @@
 #pragma once
 #include "resource.h"
+#include "afxcmn.h"
 
 // CMonTest 对话框
 class CMonTest : public CDialogEx
@@ -27,7 +28,6 @@ public:
     CString m_teststring;
     afx_msg void OnBnClickedButton1();
     // 节点号
-    int m_node;
     int m_testspeed;
     // //采集到的数据总数
     CString m_gained;
@@ -42,4 +42,12 @@ public:
     afx_msg void OnBnClickedSendsampling();
     // 监控的主控端
     DWORD m_rnode;
+    // 项目状态:已被监控,等待开始(idle),测量过程中,暂停,挂起,停止
+    int m_projstatus;
+    // 项目编号
+    int m_project_no;
+    // 总采集数
+    DWORD m_totalcount;
+    // 采集速度
+    CProgressCtrl m_speedctrl;
 };

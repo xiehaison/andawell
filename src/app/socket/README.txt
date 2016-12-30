@@ -10,3 +10,7 @@ dbagent是数据库代理的测试桩主程序
 include是所有通信程序使用的通信函数和数据头文件
 srvsocket是服务器使用的通信库
 testlinuxsocket是linux下可以使用的通信库
+clientsockdemo是测试通信库的程序,client端
+serverdemo是测试通信库的程序,server端
+
+

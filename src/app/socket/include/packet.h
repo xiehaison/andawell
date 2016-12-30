@@ -294,8 +294,8 @@ typedef struct {}S_IA_ReqTestMachineInfo;
 typedef struct {}S_IA_ReqTestMachineInfoResult;
 
 enum{
-	E_STOP_MONITOR,
 	E_START_MONITOR,
+    E_STOP_MONITOR,
 };
 
 typedef struct {
@@ -312,7 +312,13 @@ typedef struct {
         E_MONITOR_YES,
         E_MONITOR_NO,
     };
+    int type;
+    int datatype;
+    int project_current_status;
+    int project_sn;
+    int totalcount;
     DWORD result;
+    int speed;
 }S_IA_ReqMonitorResult;
 
 typedef struct {
@@ -387,6 +393,18 @@ enum{
 
 
 
+typedef struct S_REQ_MONITOR{
+    int proj_timer;  //项目编号+1000等于时间中断的号码
+    BYTE data_type;  //数据的格式类型
+    DWORD rnode;	 //远端节点号码
+    DWORD SerialNo;	 //包的序列号
+    S_REQ_MONITOR()
+    {
+        memset(this, 0, sizeof(S_REQ_MONITOR));
+    }
+}S_REQ_MONITOR;
+
+
 typedef struct tag_IB_Packet{
     DWORD HeadTag;  //=0xeffffffe
     DWORD PackType; //包类型
@@ -458,6 +476,15 @@ enum{
     ID_END,
 };
 
+enum
+{
+    E_PROJECT_IDLE,
+    E_PROJECT_RUNNING,
+    E_PROJECT_PAUSE,
+    E_PROJECT_SUSPEND,
+    E_PROJECT_CLOSED,
+};
+
 typedef struct {
     DWORD node;
 }    S_ID_RegTestMachine;
@@ -521,13 +548,37 @@ typedef struct {
 }S_ID_StopTestPlan;
 
 
-typedef struct {}    S_ID_ResetTestMachineResult;
-typedef struct {}    S_ID_SynTestMachineInfoResult;
-typedef struct {}    S_ID_StartTestPlanResult;
-typedef struct {}    S_ID_PauseTestPlanResult;
-typedef struct {}    S_ID_SuspendTestPlanResult;
-typedef struct {}    S_ID_ContinueTestPlanResult;
-typedef struct {}    S_ID_StopTestPlanResult;
+typedef struct {
+}    S_ID_ResetTestMachineResult;
+
+typedef struct {
+}    S_ID_SynTestMachineInfoResult;
+
+typedef struct {
+    int sn;
+    int result;
+}    S_ID_StartTestPlanResult;
+
+typedef struct {
+    int sn;
+    int result;
+}    S_ID_PauseTestPlanResult;
+
+typedef struct {
+    int sn;
+    int result;
+}    S_ID_SuspendTestPlanResult;
+
+typedef struct {
+    int sn;
+    int result;
+}    S_ID_ContinueTestPlanResult;
+
+typedef struct {
+    int sn;
+    int result;
+}    S_ID_StopTestPlanResult;
+
 typedef struct {
     int progress;
     int   sn;           //编号
